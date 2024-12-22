@@ -1,0 +1,10 @@
+x	Y	x	x	x	x	Y	x	x	x	x	Y	x
+x	x	Y	x	Y	R	Y	R	Y	x	Y	x	x
+x	x	x	Y	R	R	Y	R	R	Y	x	x	x
+x	x	x	x	Y	Y	Y	Y	Y	x	x	x	x
+x	x	x	Y	Y	Y	Y	Y	Y	Y	x	x	x
+x	x	Y	Y	Y	R	R	R	Y	Y	Y	x	x
+x	Y	Y	Y	x	R	R	R	x	Y	Y	Y	x
+Y	Y	Y	Y	x	Y	Y	Y	x	Y	Y	Y	Y
+Y	Y	Y	x	x	R	R	R	x	x	Y	Y	Y
+Y	Y	Y	x	x	x	R	x	x	x	Y	Y	Y

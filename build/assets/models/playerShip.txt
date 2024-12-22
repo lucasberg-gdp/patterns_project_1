@@ -1,0 +1,16 @@
+x	x	x	x	x	x	x	W	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	W	x	x	x	x	x	x	x
+x	x	x	x	x	x	x	W	x	x	x	x	x	x	x
+x	x	x	x	x	x	W	W	W	x	x	x	x	x	x
+x	x	x	x	x	x	W	W	W	x	x	x	x	x	x
+x	x	x	R	x	x	W	W	W	x	x	R	x	x	x
+x	x	x	R	x	x	W	W	W	x	x	R	x	x	x
+x	x	x	W	x	W	W	W	W	W	x	W	x	x	x
+R	x	x	W	B	W	W	R	W	W	B	W	x	x	R
+R	x	x	B	W	W	R	R	R	W	W	B	x	x	R
+W	x	x	W	W	W	R	W	R	W	W	W	x	x	W
+W	x	W	W	W	W	W	W	W	W	W	W	W	x	W
+W	W	W	W	W	R	W	W	W	R	W	W	W	W	W
+W	W	W	x	R	R	W	W	W	R	R	x	W	W	W
+W	W	x	x	R	R	x	W	x	R	R	x	x	W	W
+W	x	x	x	x	x	x	W	x	x	x	x	x	x	W

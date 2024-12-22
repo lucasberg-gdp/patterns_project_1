@@ -1,0 +1,7 @@
+x	x	W	x	x
+x	W	W	x	x
+x	x	W	x	x
+x	x	W	x	x
+x	x	W	x	x
+x	x	W	x	x
+x	W	W	W	x

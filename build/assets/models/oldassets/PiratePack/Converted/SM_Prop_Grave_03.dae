@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 3.6.9 commit date:2024-02-19, commit time:16:48, hash:e958717a0c25</authoring_tool>
+    </contributor>
+    <created>2024-03-11T14:56:34</created>
+    <modified>2024-03-11T14:56:34</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_cameras>
+    <camera id="Camera-camera" name="Camera">
+      <optics>
+        <technique_common>
+          <perspective>
+            <xfov sid="xfov">39.59775</xfov>
+            <aspect_ratio>1.777778</aspect_ratio>
+            <znear sid="znear">0.1</znear>
+            <zfar sid="zfar">100</zfar>
+          </perspective>
+        </technique_common>
+      </optics>
+      <extra>
+        <technique profile="blender">
+          <shiftx sid="shiftx" type="float">0</shiftx>
+          <shifty sid="shifty" type="float">0</shifty>
+          <dof_distance sid="dof_distance" type="float">10</dof_distance>
+        </technique>
+      </extra>
+    </camera>
+  </library_cameras>
+  <library_lights>
+    <light id="Light-light" name="Light">
+      <technique_common>
+        <point>
+          <color sid="color">1000 1000 1000</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <type sid="type" type="int">0</type>
+          <flag sid="flag" type="int">0</flag>
+          <mode sid="mode" type="int">1</mode>
+          <gamma sid="blender_gamma" type="float">1</gamma>
+          <red sid="red" type="float">1</red>
+          <green sid="green" type="float">1</green>
+          <blue sid="blue" type="float">1</blue>
+          <shadow_r sid="blender_shadow_r" type="float">0</shadow_r>
+          <shadow_g sid="blender_shadow_g" type="float">0</shadow_g>
+          <shadow_b sid="blender_shadow_b" type="float">0</shadow_b>
+          <energy sid="blender_energy" type="float">1000</energy>
+          <dist sid="blender_dist" type="float">29.99998</dist>
+          <spotsize sid="spotsize" type="float">75</spotsize>
+          <spotblend sid="spotblend" type="float">0.15</spotblend>
+          <att1 sid="att1" type="float">0</att1>
+          <att2 sid="att2" type="float">1</att2>
+          <falloff_type sid="falloff_type" type="int">2</falloff_type>
+          <clipsta sid="clipsta" type="float">0.04999995</clipsta>
+          <clipend sid="clipend" type="float">30.002</clipend>
+          <bias sid="bias" type="float">1</bias>
+          <bufsize sid="bufsize" type="int">2880</bufsize>
+          <samp sid="samp" type="int">3</samp>
+          <buffers sid="buffers" type="int">1</buffers>
+          <radius sid="radius" type="float">0.1</radius>
+          <area_shape sid="area_shape" type="int">1</area_shape>
+          <area_size sid="area_size" type="float">0.1</area_size>
+          <area_sizey sid="area_sizey" type="float">0.1</area_sizey>
+          <area_sizez sid="area_sizez" type="float">1</area_sizez>
+        </technique>
+      </extra>
+    </light>
+  </library_lights>
+  <library_effects>
+    <effect id="Default_OBJ_344-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <lambert>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <diffuse>
+              <color sid="diffuse">0.8 0.8 0.8 1</color>
+            </diffuse>
+            <index_of_refraction>
+              <float sid="ior">1.45</float>
+            </index_of_refraction>
+          </lambert>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_images/>
+  <library_materials>
+    <material id="Default_OBJ_344-material" name="Default OBJ.344">
+      <instance_effect url="#Default_OBJ_344-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="SM_Prop_Grave_03-mesh" name="SM_Prop_Grave_03">
+      <mesh>
+        <source id="SM_Prop_Grave_03-mesh-positions">
+          <float_array id="SM_Prop_Grave_03-mesh-positions-array" count="75">-0.224466 0.889092 0.05522894 0.2244729 0.889092 0.05522894 0.08926898 0.960902 0.05522894 -0.08926099 0.960902 0.05522894 0.08926898 0.960902 -0.05522894 -0.08926099 0.960902 -0.05522894 -0.30172 0 -0.05522894 0.301727 0 -0.05522894 0.301727 0 0.05522894 -0.30172 0 0.05522894 0.09755098 0.889092 -0.05522894 -0.224466 0.889092 -0.05522894 -0.30172 0.762812 -0.05522894 -0.135828 0.762812 0.05522894 0.301727 0.762812 -0.05522894 0.301727 0.544624 0.05522894 0.169866 0.421769 0.05522894 0.260536 0.426819 -0.05522894 -0.30172 0.48693 -0.05522894 -0.148693 0.426819 -0.05522894 -0.28051 0.393207 0.05522894 0.301727 0.762812 0.05522894 -0.30172 0.702741 0.05522894 -0.30172 0.368102 -0.05522894 0.301727 0.267158 0.05522894</float_array>
+          <technique_common>
+            <accessor source="#SM_Prop_Grave_03-mesh-positions-array" count="25" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="SM_Prop_Grave_03-mesh-normals">
+          <float_array id="SM_Prop_Grave_03-mesh-normals-array" count="117">0 0 1 0 1 0 0 -1 0 0.6546132 0.07549786 -0.7521847 -0.469065 0.8831636 0 -0.5165176 -0.3625522 0.7757356 0.4501706 0.7278589 -0.5172697 0.6032818 -0.6475062 0.4656037 -0.2967749 -0.7555114 -0.5840609 0 0 1 -0.8530325 0.5218577 0 -0.3031418 0.8371559 0.4552748 -0.3546094 0.9241757 -0.1419559 0.6367101 0.5430226 0.547473 0 0 1 0 0 1 0 0 1 0.9980282 0.02398252 -0.05800521 0.9782016 0.07934278 -0.1919018 1 0 0 0.9773828 -0.09551823 -0.1886776 0.9967606 -0.03632575 -0.07175445 -0.9930171 -0.05374979 0.1050155 -0.9994107 -0.0156393 0.0305559 -1 0 0 0 0 -1 0 0 -1 0 0 -1 -0.999395 0.009996891 0.0333147 -0.9879351 0.04451131 0.1483343 0.4690677 0.8831623 0 0.8530327 0.5218576 0 0 0 1 0 0 1 0.9695512 0.09356832 -0.2263082 0.9650821 -0.1183139 -0.2337061 -0.9888791 -0.06776028 0.1323888 0 0 -1 -0.9828407 0.05301541 0.1766742</float_array>
+          <technique_common>
+            <accessor source="#SM_Prop_Grave_03-mesh-normals-array" count="39" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="SM_Prop_Grave_03-mesh-map-0">
+          <float_array id="SM_Prop_Grave_03-mesh-map-0-array" count="276">0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076 0.352028 0.211076</float_array>
+          <technique_common>
+            <accessor source="#SM_Prop_Grave_03-mesh-map-0-array" count="138" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="SM_Prop_Grave_03-mesh-vertices">
+          <input semantic="POSITION" source="#SM_Prop_Grave_03-mesh-positions"/>
+        </vertices>
+        <triangles material="Default_OBJ_344-material" count="46">
+          <input semantic="VERTEX" source="#SM_Prop_Grave_03-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#SM_Prop_Grave_03-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#SM_Prop_Grave_03-mesh-map-0" offset="2" set="0"/>
+          <p>1 0 0 3 0 1 0 0 2 2 1 3 5 1 4 3 1 5 7 2 6 9 2 7 6 2 8 1 3 9 10 3 10 4 3 11 0 4 12 5 4 13 11 4 14 12 5 15 13 5 16 0 5 17 1 6 18 14 6 19 10 6 20 15 7 21 16 7 22 17 7 23 18 8 24 19 8 25 20 8 26 13 9 27 1 0 28 0 0 29 12 10 30 0 10 31 11 10 32 12 11 33 22 11 34 13 11 35 20 12 36 19 12 37 23 12 38 16 13 39 24 13 40 17 13 41 15 0 42 21 0 43 13 9 44 16 14 45 9 15 46 24 16 47 7 17 48 24 18 49 8 19 50 15 20 51 14 21 52 21 19 53 18 22 54 22 23 55 12 24 56 14 25 57 17 25 58 19 26 59 19 26 60 7 25 61 6 27 62 9 28 63 23 29 64 6 24 65 1 30 66 4 30 67 2 30 68 21 31 69 14 31 70 1 31 71 10 25 72 12 25 73 11 25 74 5 25 75 10 25 76 11 25 77 1 0 78 2 0 79 3 0 80 2 1 81 4 1 82 5 1 83 7 2 84 8 2 85 9 2 86 0 4 87 3 4 88 5 4 89 13 9 90 21 0 91 1 0 92 22 32 93 20 33 94 13 9 95 20 33 96 16 14 97 13 9 98 16 14 99 15 0 100 13 9 101 20 33 102 9 15 103 16 14 104 9 15 105 8 0 106 24 16 107 7 17 108 17 34 109 24 18 110 15 20 111 17 35 112 14 21 113 18 22 114 20 36 115 22 23 116 18 25 117 12 25 118 19 26 119 12 25 120 14 25 121 19 26 122 6 27 123 23 37 124 19 26 125 19 26 126 17 25 127 7 25 128 9 28 129 20 38 130 23 29 131 10 25 132 14 25 133 12 25 134 5 25 135 4 25 136 10 25 137</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="SM_Prop_Grave_03" name="SM_Prop_Grave_03" type="NODE">
+        <matrix sid="transform">1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 0 0 0 0 1</matrix>
+        <instance_geometry url="#SM_Prop_Grave_03-mesh" name="SM_Prop_Grave_03">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Default_OBJ_344-material" target="#Default_OBJ_344-material">
+                <bind_vertex_input semantic="UVMap" input_semantic="TEXCOORD" input_set="0"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <node id="Camera" name="Camera" type="NODE">
+        <matrix sid="transform">0.6859207 -0.3240135 0.6515582 7.358891 0.7276763 0.3054208 -0.6141704 -6.925791 0 0.8953956 0.4452714 4.958309 0 0 0 1</matrix>
+        <instance_camera url="#Camera-camera"/>
+      </node>
+      <node id="Light" name="Light" type="NODE">
+        <matrix sid="transform">-0.2908646 -0.7711008 0.5663932 4.076245 0.9551712 -0.1998834 0.2183912 1.005454 -0.05518906 0.6045247 0.7946723 5.903862 0 0 0 1</matrix>
+        <instance_light url="#Light-light"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

@@ -151,8 +151,12 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dev\fmod\lib;$(SolutionDir)dev\lua\lib\$(Configuration);$(SolutionDir)dev\assimp\lib;$(SolutionDir)dev\glew\lib\$(Configuration);%(AdditionalLibraryDirectories);$(SolutionDir)dev\fbxsdk\lib\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>"$(SolutionDir)PreBuild.bat" "$(SolutionDir)dev\fmod\lib"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>call "$(SolutionDir)PreBuild.bat" "$(SolutionDir)" "$(Configuration)" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\dev\imgui\include\imgui.cpp" />

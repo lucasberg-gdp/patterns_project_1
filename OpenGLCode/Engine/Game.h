@@ -7,7 +7,6 @@ class Game : public iSystem
 {
 	//double timeForNextShip = 0.1;
 	bool isGamePaused = false;
-	bool isInMenu = true;
 	bool isGameOver = false;
 	bool isStageComplete = false;
 
@@ -27,7 +26,8 @@ class Game : public iSystem
 	double gameStartDelay = 1.0;
 
 public:
-	
+	bool isInMenu = true;
+
 	Game();
 	void SendNextSquad();
 

@@ -1,10 +1,12 @@
 #include "cPlayer.h"
 #include "cCollisionMediator.h"
 #include "cScene.h"
+#include "game.h"
 
 extern cCollisionMediator* g_CollisionMediator;
 
 extern cScene* g_currentScene;
+extern Game game;
 
 cPlayer::cPlayer()
 {
@@ -168,7 +170,7 @@ void cPlayer::UpdateBulletCooldown(double deltaTime)
 
 void cPlayer::ShootBullet()
 {
-	if (m_canShootBullet)
+	if (m_canShootBullet && !game.isInMenu)
 	{
 		bulletFactory.CreateBullet(m_PlayerMesh->drawPosition.x, m_PlayerMesh->drawPosition.y, m_PlayerMesh->drawPosition.z);
 		m_BulletCooldownTimer = m_BulletCooldown;

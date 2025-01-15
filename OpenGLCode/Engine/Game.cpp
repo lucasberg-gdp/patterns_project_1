@@ -55,8 +55,6 @@ std::vector<iEnemy*> leftSquad;
 std::vector<iEnemy*> rightSquad;
 std::vector<iEnemy*> bottomLeftSquad;
 
-
-
 void Game::CreateStageSquads()
 {
     // First squad

@@ -18,6 +18,7 @@
 #include "Game.h"
 
 extern cScene* g_currentScene;
+extern Game game;
 
 extern glm::vec3 g_cameraEye;
 bool bUseFlyCamera = true;
@@ -1246,8 +1247,6 @@ void cInputHandler::OnPress(int key)
         }
     }
 }
-
-extern Game game;
 
 void cInputHandler::WhilePressed(GLFWwindow* window, int key) const
 {

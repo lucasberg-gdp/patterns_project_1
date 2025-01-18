@@ -15,7 +15,7 @@ struct cSquad
 	int m_ShipsPerCoolDown = 1;
 
 	double timer = 0.0;
-	double timeForNextShip = 0.25;
+	double timeForNextShip = 0.35;
 
 	int m_CurrentShipIndex = 0;
 	std::vector<iEnemy*> m_EnemiesInSquad;

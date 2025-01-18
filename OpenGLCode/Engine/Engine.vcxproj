@@ -119,7 +119,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;lua5.4.6-static.lib;assimp-vc143-mtd.lib;glew32d.lib;fmod_vc.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;lua5.4.7-static.lib;assimp-vc143-mtd.lib;glew32d.lib;fmod_vc.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dev\fmod\lib;$(SolutionDir)dev\glew\lib\;$(SolutionDir)dev\assimp\lib\;$(SolutionDir)dev\glfw\lib\;%(AdditionalLibraryDirectories);$(SolutionDir)dev\fbxsdk\lib\$(Configuration)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateMapFile>true</GenerateMapFile>
@@ -147,7 +147,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;lua5.4.6-static.lib;assimp-vc143-mt.lib;%(AdditionalDependencies);fmod_vc.lib;fmodL_vc.lib</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;lua5.4.7-static.lib;assimp-vc143-mt.lib;%(AdditionalDependencies);fmod_vc.lib;fmodL_vc.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dev\fmod\lib;$(SolutionDir)dev\lua\lib\$(Configuration);$(SolutionDir)dev\assimp\lib;$(SolutionDir)dev\glew\lib\$(Configuration);%(AdditionalLibraryDirectories);$(SolutionDir)dev\fbxsdk\lib\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
@@ -172,10 +172,14 @@
     <ClCompile Include="Basic Shader Manager\cShaderManager.cpp" />
     <ClCompile Include="Bones.cpp" />
     <ClCompile Include="c2DNavigation.cpp" />
+    <ClCompile Include="cAddVelocity.cpp" />
     <ClCompile Include="cAnimation.cpp" />
     <ClCompile Include="cAnimationSystem.cpp" />
     <ClCompile Include="cAssimpHelper.cpp" />
     <ClCompile Include="cAssimpHelper_Imp_Load3DModelFile.cpp" />
+    <ClCompile Include="cCommandFactory.cpp" />
+    <ClCompile Include="cCommandGroup.cpp" />
+    <ClCompile Include="cCommandManager.cpp" />
     <ClCompile Include="cEnemyBullet.cpp" />
     <ClCompile Include="cEnemyBulletFactory.cpp" />
     <ClCompile Include="cEnemyDirector.cpp" />
@@ -183,19 +187,24 @@
     <ClCompile Include="cEnemyManager.cpp" />
     <ClCompile Include="cExplosion.cpp" />
     <ClCompile Include="cExplosionCreator.cpp" />
+    <ClCompile Include="cFlickerLight.cpp" />
+    <ClCompile Include="cFollowBezierCubicCurve.cpp" />
+    <ClCompile Include="cFollowObject_A.cpp" />
     <ClCompile Include="cGameGrid.cpp" />
+    <ClCompile Include="cLightSwitch.cpp" />
+    <ClCompile Include="cLookAtObject.cpp" />
+    <ClCompile Include="cLuaManager.cpp" />
+    <ClCompile Include="cMoveRelativeTime.cpp" />
+    <ClCompile Include="cOrientTo.cpp" />
     <ClCompile Include="cPlayerBullet.cpp" />
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cCameraManager.cpp" />
     <ClCompile Include="cCollisionMediator.cpp" />
     <ClCompile Include="cColor.cpp" />
-    <ClCompile Include="cCommandGroup.cpp" />
-    <ClCompile Include="cCommand_MoveTo.cpp" />
     <ClCompile Include="cCube.cpp" />
     <ClCompile Include="cDebugRenderer.cpp" />
     <ClCompile Include="cBeeEnemy.cpp" />
     <ClCompile Include="cEnemyBuilder.cpp" />
-    <ClCompile Include="cEvilLuaRobot.cpp" />
     <ClCompile Include="cAssimpHelper_Imp.cpp" />
     <ClCompile Include="cFlyCamera.cpp" />
     <ClCompile Include="cGameManager.cpp" />
@@ -236,6 +245,7 @@
     <ClCompile Include="cUiManager.cpp" />
     <ClCompile Include="cVAOManager\cVAOManager.cpp" />
     <ClCompile Include="cVAOManager\sModelDrawInfo.cpp" />
+    <ClCompile Include="cWaitTimer.cpp" />
     <ClCompile Include="cWorldText.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="fbo\cFBO.cpp" />
@@ -245,8 +255,6 @@
     <ClCompile Include="cInputHandler.cpp" />
     <ClCompile Include="LoadModels.cpp" />
     <ClCompile Include="LogUtils.cpp" />
-    <ClCompile Include="LuaScripts\cLuaBrain.cpp" />
-    <ClCompile Include="LuaScripts\LuaManager.cpp" />
     <ClCompile Include="MathUtils.cpp" />
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="OpenGLCommon.cpp" />
@@ -272,9 +280,13 @@
     <ClInclude Include="c2DNavigation.h" />
     <ClInclude Include="cAABB.h" />
     <ClInclude Include="cAABB_JUST_SOME_NOTE.h" />
+    <ClInclude Include="cAddVelocity.h" />
     <ClInclude Include="cAnimation.h" />
     <ClInclude Include="cAnimationSystem.h" />
     <ClInclude Include="cAssimpHelper.h" />
+    <ClInclude Include="cCommandFactory.h" />
+    <ClInclude Include="cCommandGroup.h" />
+    <ClInclude Include="cCommandManager.h" />
     <ClInclude Include="cEnemyBullet.h" />
     <ClInclude Include="cEnemyBulletFactory.h" />
     <ClInclude Include="cEnemyDirector.h" />
@@ -282,22 +294,26 @@
     <ClInclude Include="cEnemyManager.h" />
     <ClInclude Include="cExplosion.h" />
     <ClInclude Include="cExplosionCreator.h" />
+    <ClInclude Include="cFlickerLight.h" />
+    <ClInclude Include="cFollowBezierCubicCurve.h" />
+    <ClInclude Include="cFollowObject_A.h" />
     <ClInclude Include="cGameGrid.h" />
+    <ClInclude Include="cLightSwitch.h" />
+    <ClInclude Include="cLookAtObject.h" />
+    <ClInclude Include="cLuaManager.h" />
+    <ClInclude Include="cMoveRelativeTime.h" />
+    <ClInclude Include="cOrientTo.h" />
     <ClInclude Include="cPlayerBullet.h" />
+    <ClInclude Include="cWaitTimer.h" />
     <ClInclude Include="iBulletFactory.h" />
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cCameraManager.h" />
     <ClInclude Include="cCollisionMediator.h" />
     <ClInclude Include="cColor.h" />
-    <ClInclude Include="cCommandFactory.h" />
-    <ClInclude Include="cCommandGroup.h" />
-    <ClInclude Include="cCommandManager.h" />
-    <ClInclude Include="cCommand_MoveTo.h" />
     <ClInclude Include="cCube.h" />
     <ClInclude Include="cDebugRender.h" />
     <ClInclude Include="cBeeEnemy.h" />
     <ClInclude Include="cEnemyBuilder.h" />
-    <ClInclude Include="cEvilLuaRobot.h" />
     <ClInclude Include="cFileLoader_Imp.h" />
     <ClInclude Include="cFlyCamera.h" />
     <ClInclude Include="cGameManager.h" />
@@ -348,8 +364,6 @@
     <ClInclude Include="iShip.h" />
     <ClInclude Include="iSystem.h" />
     <ClInclude Include="LogUtils.h" />
-    <ClInclude Include="LuaScripts\cLuaBrain.h" />
-    <ClInclude Include="LuaScripts\LuaManager.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="OpenGLCommon.h" />
     <ClInclude Include="SoftBodySystem.h" />
@@ -379,7 +393,6 @@
     <None Include="docs\scenes\DevScene.json" />
     <None Include="docs\scenes\PatternsProject1.json" />
     <None Include="docs\Textures.json" />
-    <None Include="testlua.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

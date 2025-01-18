@@ -42,9 +42,6 @@
 #include "TextureManager/cBasicTextureManager.h"
 #include "cGameManager.h"
 
-#include "LuaScripts/cLuaBrain.h"
-#include "cCommand_MoveTo.h"
-
 // Utils
 #include "cColor.h"
 #include "MathUtils.h"
@@ -74,7 +71,6 @@
 
 #include "cCube.h"
 
-#include "LuaScripts/LuaManager.h"
 #include "cStars.h"
 #include "cCollisionMediator.h"
 
@@ -96,8 +92,6 @@ std::vector<cScene*> g_scenes;
 cScene* g_currentScene = NULL;
 
 cFlyCamera* g_pFlyCamera = NULL;
-
-std::vector<cCommand_MoveTo> g_vecAnimationCommands;
 
 cAnimationSystem* g_animationSystem = NULL;
 
@@ -123,8 +117,6 @@ cMesh* g_rainSplashMesh = nullptr;
 
 cSoftBodyVerlet* g_softBody;
 std::vector< cSoftBodyVerlet* > chainSoftBodies;
-
-cLuaBrain g_LuaBrain;
 
 cShaderManager* shaderManager = nullptr;
 

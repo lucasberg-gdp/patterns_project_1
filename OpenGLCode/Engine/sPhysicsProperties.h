@@ -219,12 +219,13 @@ public:
 
 	glm::vec3 eulerOrientation = glm::vec3(0.0f);
 	glm::vec3 rotationSpeed = glm::vec3(0.0f);
+	glm::vec3 rotationAcceleration = glm::vec3(0.0f);
 
 	glm::vec3 velocity = glm::vec3(0.0f);
 	glm::vec3 acceleration = glm::vec3(0.0f);
 
 	bool hasMaxVelocity = false;
-	float maxVelocity = 1.0f;
+	float maxVelocity = 100.0f;
 	float maxAngularVelocity = 1.0f;
 
 	std::map<std::string,glm::vec3> forcesAppliedToObject; // std::string mesh friendly name, glm::vec3 mesh acceleration 
@@ -257,6 +258,7 @@ public:
 
 	static sPhysicsProperties* CreateSphere(float radius);
 
+	void StopPhysicsObject();
 private:
 	unsigned int m_UniqueID;
 	static const unsigned int FIRST_UNIQUE_ID = 1;

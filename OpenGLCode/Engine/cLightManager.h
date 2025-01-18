@@ -75,7 +75,14 @@ public:
 
     std::vector<sLightsInfo> SerializeLight();
 
+    bool SetLightPosition(std::string friendlyName, glm::vec4 position);
+    bool SetLightOrientation(std::string friendlyName, glm::vec4 orientation);
+    bool SetLightAttenuation(std::string lightName, glm::vec4 attenuation);
+
     void Update(double deltaTime);
+
+    void TurnOnLightByFriendlyName(std::string friendlyName);
+    void TurnOffLightByFriendlyName(std::string friendlyName);
 
     void TurnOffAllLights();
     void TurnOnAllLights();

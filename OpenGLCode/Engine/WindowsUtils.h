@@ -14,5 +14,7 @@ public:
 	static bool GetAllFilesFromFolder(std::string path, std::vector< std::string>& fileNames);
 	static bool GetAllFoldersFromFolder(std::string path, std::vector< std::string>& fileNames);
 	static bool LoadPirateAssets(std::vector< std::string>& fileNames);
+
+	static bool CopyFolderContents(const std::wstring sourceFolder, const std::wstring destinationFolder);
 };
 

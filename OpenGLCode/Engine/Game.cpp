@@ -1,5 +1,9 @@
 #include <sstream>
 
+#include <fstream>
+#include <sstream>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Game.h"
 #include "cGameManager.h"
 #include "Character.h"
@@ -19,6 +23,14 @@
 #include "cEnemyBuilder.h"
 #include "cEnemyDirector.h"
 #include "cCollisionMediator.h"
+
+#include "cColor.h"
+#include "Engine.h"
+#include "Basic Shader Manager/cShaderManager.h"
+#include "cLuaManager.h"
+#include "cMoveRelativeTime.h"
+#include "cOrientTo.h"
+#include "cCamera.h"
 
 // TODO: Remove this
 #include "cEnemyBulletFactory.h"
@@ -60,34 +72,35 @@ void Game::CreateStageSquads()
     // First squad
     cSquad firstSquad = cSquad(4,2,true);
 
-    firstSquad.SetBeesMovementType("basicHalfCircle");
-    firstSquad.SetButterfliesMovementType("invertedBasicHalfCircle");
+    firstSquad.SetBeesMovementType("bezierIntro");
+    firstSquad.SetButterfliesMovementType("bezierIntro");
+    //firstSquad.SetButterfliesMovementType("invertedBasicHalfCircle");
 
     squads.push_back(firstSquad);
 
     // Second squad
-    cSquad secondSquad = cSquad();
+    //cSquad secondSquad = cSquad();
 
-    secondSquad.CreateButterflyAndMothsSquad(4, 1, true);
-    secondSquad.SetButterfliesMovementType("basicFullCircle");
-    secondSquad.SetMothsMovementType("basicFullCircle");
+    //secondSquad.CreateButterflyAndMothsSquad(4, 1, true);
+    //secondSquad.SetButterfliesMovementType("basicFullCircle");
+    //secondSquad.SetMothsMovementType("basicFullCircle");
 
-    squads.push_back(secondSquad);
+    //squads.push_back(secondSquad);
 
-    // Third squad
-    cSquad thirdSquad = cSquad(0, 8, 0, 1);
-    thirdSquad.SetButterfliesMovementType("invertedBasicFullCircle");
-    squads.push_back(thirdSquad);
+    //// Third squad
+    //cSquad thirdSquad = cSquad(0, 8, 0, 1);
+    //thirdSquad.SetButterfliesMovementType("invertedBasicFullCircle");
+    //squads.push_back(thirdSquad);
 
-    // Fourth squad
-    cSquad fourthSquad = cSquad(8, 0, 0, 1);
-    fourthSquad.SetBeesMovementType("invertedBasicHalfCircle");
-    squads.push_back(fourthSquad);
+    //// Fourth squad
+    //cSquad fourthSquad = cSquad(8, 0, 0, 1);
+    //fourthSquad.SetBeesMovementType("invertedBasicHalfCircle");
+    //squads.push_back(fourthSquad);
 
-    // Fifth squad
-    cSquad fifthSquad = cSquad(8, 0, 0, 1);
-    fifthSquad.SetBeesMovementType("basicHalfCircle");
-    squads.push_back(fifthSquad);
+    //// Fifth squad
+    //cSquad fifthSquad = cSquad(8, 0, 0, 1);
+    //fifthSquad.SetBeesMovementType("basicHalfCircle");
+    //squads.push_back(fifthSquad);
 
     // Sum all score
     for (int i = 0; i < squads.size(); i++)
@@ -346,7 +359,6 @@ void Game::Start(GLFWwindow& window)
     g_currentScene->StartScene();
 
     g_currentScene->score = new cScore();
-
     g_currentScene->worldText = new cWorldText();
 
     //cEnemyDirector director = cEnemyDirector(&builder);
@@ -567,4 +579,194 @@ void Game::SendSecondSquad()
         g_CollisionMediator->AddEnemy(mothEnemy);
         bottomLeftSquad.push_back(mothEnemy);
     }
+}
+
+// Lua functions
+int LuaAddSerialCommand(lua_State* L)
+{
+    std::string friendlyName = lua_tostring(L, 1);
+
+    cGameObject* pGO = cLuaManager::FindObjectByFriendlyName(friendlyName);
+
+    if (pGO == nullptr)
+    {
+        lua_pushboolean(L, false);
+        return 1;
+    }
+
+    std::vector<std::string> commandDetails;
+    commandDetails.push_back(friendlyName);
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 3)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 4)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 5)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 6)));
+    commandDetails.push_back("false");
+    commandDetails.push_back("false");
+
+    iCommand* luaCommand = g_currentScene->m_commandFactory->CreateCommandObject(lua_tostring(L, 2), commandDetails);
+
+    if (g_currentScene->m_commandManager->m_IsCreatingCommandGroup)
+    {
+        g_currentScene->m_commandManager->m_CommandGroupBeingCreated->addSerial(luaCommand);
+    }
+    else
+    {
+        cCommandGroup* serialCommand = new cCommandGroup();
+        serialCommand->addSerial(luaCommand);
+        g_currentScene->m_commandManager->AddCommandGroup(serialCommand);
+    }
+
+    return 1;
+}
+
+int LuaCreateCommandGroup(lua_State* L)
+{
+    g_currentScene->m_commandManager->m_IsCreatingCommandGroup = true;
+    g_currentScene->m_commandManager->m_CommandGroupBeingCreated = new cCommandGroup();
+    return 1;
+}
+
+int LuaCompleteCommandGroup(lua_State* L)
+{
+    g_currentScene->m_commandManager->m_IsCreatingCommandGroup = false;
+    g_currentScene->m_commandManager->AddCommandGroup(g_currentScene->m_commandManager->m_CommandGroupBeingCreated);
+    return 1;
+}
+
+int LuaAddParallelCommand(lua_State* L)
+{
+    std::string friendlyName = lua_tostring(L, 1);
+
+    cGameObject* pGO = cLuaManager::FindObjectByFriendlyName(friendlyName);
+
+    if (pGO == nullptr)
+    {
+        lua_pushboolean(L, false);
+        return 1;
+    }
+
+    std::vector<std::string> commandDetails;
+    commandDetails.push_back(friendlyName);
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 3)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 4)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 5)));
+
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 6)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 7)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 8)));
+
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 9)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 10)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 11)));
+
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 12)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 13)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 14)));
+
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 15)));
+
+    iCommand* luaCommand = g_currentScene->m_commandFactory->CreateCommandObject(lua_tostring(L, 2), commandDetails);
+
+    if (g_currentScene->m_commandManager->m_IsCreatingCommandGroup)
+    {
+        g_currentScene->m_commandManager->m_CommandGroupBeingCreated->addParallel(luaCommand);
+    }
+    else
+    {
+        cCommandGroup* serialCommand = new cCommandGroup();
+        serialCommand->addParallel(luaCommand);
+        g_currentScene->m_commandManager->AddCommandGroup(serialCommand);
+    }
+
+    return 1;
+}
+
+int LuaAddLocationTriggerCommand(lua_State* L)
+{
+    std::string triggeredFriendlyName = lua_tostring(L, 1);
+    std::string commandedFriendlyName = lua_tostring(L, 2);
+
+    cGameObject* triggeredObject = cLuaManager::FindObjectByFriendlyName(triggeredFriendlyName);
+    cGameObject* commandedObject = cLuaManager::FindObjectByFriendlyName(commandedFriendlyName);
+
+    if (triggeredObject == nullptr || commandedObject == nullptr)
+    {
+        lua_pushboolean(L, false);
+        return 1;
+    }
+
+    std::vector<std::string> commandDetails;
+    commandDetails.push_back(triggeredFriendlyName);
+    commandDetails.push_back(commandedFriendlyName);
+
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 4)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 5)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 6)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 7)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 8)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 9)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 10)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 11)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 12)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 13)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 14)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 15)));
+
+    iCommand* luaCommand = g_currentScene->m_commandFactory->CreateTriggerCommandObject(lua_tostring(L, 3), commandDetails);
+
+    if (g_currentScene->m_commandManager->m_IsCreatingCommandGroup)
+    {
+        g_currentScene->m_commandManager->m_CommandGroupBeingCreated->addParallel(luaCommand);
+    }
+    else
+    {
+        cCommandGroup* commandGroup = new cCommandGroup();
+        commandGroup->addSerial(luaCommand);
+        glm::vec3 triggerPosition = glm::vec3(
+            atof(commandDetails[2].c_str()),
+            atof(commandDetails[3].c_str()),
+            atof(commandDetails[4].c_str()));
+
+        g_currentScene->m_commandManager->AddTriggerCommandGroups(
+            triggerPosition, commandGroup, triggeredFriendlyName, triggeredObject->GetObjectPhysics(), (float)atof(commandDetails[5].c_str()));
+    }
+
+    return 1;
+}
+
+int LuaAddLoopingAnimation(lua_State* L)
+{
+    std::string loopingObjectFriendlyName = lua_tostring(L, 1);
+
+    cGameObject* loopingObject = cLuaManager::FindObjectByFriendlyName(loopingObjectFriendlyName);
+
+    if (loopingObject == nullptr)
+    {
+        lua_pushboolean(L, false);
+        return 1;
+    }
+
+    std::vector<std::string> commandDetails;
+    commandDetails.push_back(loopingObjectFriendlyName);
+
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 3)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 4)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 5)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 6)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 7)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 8)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 9)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 10)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 11)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 12)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 13)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 14)));
+    commandDetails.push_back(std::to_string(lua_tonumber(L, 15)));
+
+    iCommand* luaCommand = g_currentScene->m_commandFactory->CreateLoopingCommandObject(lua_tostring(L, 2), commandDetails);
+    cCommandGroup* commandGroup = new cCommandGroup();
+    commandGroup->addSerial(luaCommand);
+    g_currentScene->m_commandManager->AddLoopingCommandGroup(commandGroup);
+
+    return 1;
 }

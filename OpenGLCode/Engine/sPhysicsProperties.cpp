@@ -144,6 +144,14 @@ sPhysicsProperties* sPhysicsProperties::CreateSphere(float radius)
 	return spherePhyics;
 }
 
+void sPhysicsProperties::StopPhysicsObject()
+{
+	velocity = glm::vec3(0.0f);
+	acceleration = glm::vec3(0.0f);
+	rotationSpeed = glm::vec3(0.0f);
+	rotationAcceleration = glm::vec3(0.0f);
+}
+
 //static 
 unsigned int sPhysicsProperties::m_nextUniqueID = sPhysicsProperties::FIRST_UNIQUE_ID;
 

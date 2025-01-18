@@ -1,37 +1,25 @@
 #pragma once
 
-#include <vector>
-#include <string>
-
 #include "iCommand.h"
+#include <vector>
 
-class cCommandGroup
+class cCommandGroup : public iCommand
 {
 public:
 	cCommandGroup();
+	void addSerial(iCommand* pNewSerialCommand);
+	void addParallel(iCommand* pNewSepNewParallelCommandrialCommand);
 
-	std::string friendlyName;
-	unsigned int UniqueID;
-
-	void AddSerialCommand(iCommand* pTheCommand);
-	void AddParallelCommand(iCommand* pTheCommand);
-
-	bool Update(double deltaTime);
-	bool isDone(void);
+	// From the iCommand interface
+	virtual void Start(void);
+	virtual void Update(double deltaTime);
+	virtual bool isFinished(void);
+	virtual void OnFinished(void);
 
 private:
+	bool m_IsActive = false;
+
 	std::vector< iCommand* > m_vecSerialCommands;
-	// Points to the next command we're going to run
-	std::vector< iCommand* >::iterator m_itNextSerialCommand;
-	bool m_UpdateSerial(double deltaTime);
-	bool m_isDoneSerial(void);
-
-
-
+	std::vector< iCommand* >::iterator itCurSerialCommand; // = beginning 
 	std::vector< iCommand* > m_vecParallelCommands;
-	bool m_UpdateParallel(double deltaTime);
-	bool m_isDoneParallel(void);
-
-	std::vector< cCommandGroup* > m_vecCommandGroups;
-
 };

@@ -79,15 +79,6 @@
     <ClCompile Include="cHiResTimer.cpp">
       <Filter>Engine\Timing</Filter>
     </ClCompile>
-    <ClCompile Include="cEvilLuaRobot.cpp">
-      <Filter>Engine\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="cCommand_MoveTo.cpp">
-      <Filter>Engine\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="cCommandGroup.cpp">
-      <Filter>Engine\Commands\Command_V2</Filter>
-    </ClCompile>
     <ClCompile Include="cPhysics_AABB_Subdivide.cpp">
       <Filter>Engine\Components\Physics</Filter>
     </ClCompile>
@@ -192,12 +183,6 @@
     </ClCompile>
     <ClCompile Include="WindowsUtils.cpp">
       <Filter>Engine\Utils\Windows Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaScripts\cLuaBrain.cpp">
-      <Filter>Engine\Lua</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaScripts\LuaManager.cpp">
-      <Filter>Engine\Lua</Filter>
     </ClCompile>
     <ClCompile Include="SoftBodySystem.cpp">
       <Filter>Engine\Systems\Particles</Filter>
@@ -313,6 +298,45 @@
     <ClCompile Include="cSquad.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="cCommandFactory.cpp">
+      <Filter>Engine\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cCommandGroup.cpp">
+      <Filter>Engine\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cCommandManager.cpp">
+      <Filter>Engine\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="cAddVelocity.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cFlickerLight.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cFollowBezierCubicCurve.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cFollowObject_A.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cLightSwitch.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cLookAtObject.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cMoveRelativeTime.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cOrientTo.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cWaitTimer.cpp">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClCompile>
+    <ClCompile Include="cLuaManager.cpp">
+      <Filter>Engine\Lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cMesh.h">
@@ -377,24 +401,6 @@
     </ClInclude>
     <ClInclude Include="cHiResTimer.h">
       <Filter>Engine\Timing</Filter>
-    </ClInclude>
-    <ClInclude Include="cEvilLuaRobot.h">
-      <Filter>Engine\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="cCommand_MoveTo.h">
-      <Filter>Engine\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="iCommand.h">
-      <Filter>Engine\Commands\Command_V2</Filter>
-    </ClInclude>
-    <ClInclude Include="cCommandGroup.h">
-      <Filter>Engine\Commands\Command_V2</Filter>
-    </ClInclude>
-    <ClInclude Include="cCommandFactory.h">
-      <Filter>Engine\Commands\Command_V2</Filter>
-    </ClInclude>
-    <ClInclude Include="cCommandManager.h">
-      <Filter>Engine\Commands\Command_V2</Filter>
     </ClInclude>
     <ClInclude Include="cAABB.h">
       <Filter>Engine\Components\Physics</Filter>
@@ -476,12 +482,6 @@
     </ClInclude>
     <ClInclude Include="WindowsUtils.h">
       <Filter>Engine\Utils\Windows Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="LuaScripts\cLuaBrain.h">
-      <Filter>Engine\Lua</Filter>
-    </ClInclude>
-    <ClInclude Include="LuaScripts\LuaManager.h">
-      <Filter>Engine\Lua</Filter>
     </ClInclude>
     <ClInclude Include="SoftBodySystem.h">
       <Filter>Engine\Systems\Particles</Filter>
@@ -609,6 +609,48 @@
     <ClInclude Include="cSquad.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="cCommandFactory.h">
+      <Filter>Engine\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cCommandGroup.h">
+      <Filter>Engine\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cCommandManager.h">
+      <Filter>Engine\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="iCommand.h">
+      <Filter>Engine\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="cAddVelocity.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cFlickerLight.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cFollowBezierCubicCurve.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cFollowObject_A.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cLightSwitch.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cLookAtObject.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cMoveRelativeTime.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cOrientTo.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cWaitTimer.h">
+      <Filter>Engine\Commands\Command Types</Filter>
+    </ClInclude>
+    <ClInclude Include="cLuaManager.h">
+      <Filter>Engine\Lua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -646,9 +688,6 @@
     </Filter>
     <Filter Include="Engine\Commands">
       <UniqueIdentifier>{62c5d321-201e-4457-98c3-366a60fdb242}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Commands\Command_V2">
-      <UniqueIdentifier>{51209c65-b3c2-40a2-9ef3-e7d2754f2b3a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Debug Renderer">
       <UniqueIdentifier>{8b961358-a444-419b-a891-136ff5943c96}</UniqueIdentifier>
@@ -809,6 +848,9 @@
     <Filter Include="Game\Text">
       <UniqueIdentifier>{0edc61e0-c61b-4e76-9034-241e303f937d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Commands\Command Types">
+      <UniqueIdentifier>{18e8ab8e-920b-4fc6-a2a2-fc222b03e387}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragmentShader01.glsl">
@@ -837,9 +879,6 @@
     </None>
     <None Include="docs\PlyModelsToLoad.json">
       <Filter>Engine\Json\Docs\Json Files</Filter>
-    </None>
-    <None Include="testlua.lua">
-      <Filter>Engine\Lua</Filter>
     </None>
     <None Include="docs\scenes\DevScene.json">
       <Filter>Engine\Json\Docs\Json Files\Scenes</Filter>

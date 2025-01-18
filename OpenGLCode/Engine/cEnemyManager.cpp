@@ -28,18 +28,18 @@ std::vector<glm::vec3> cEnemyManager::GetMovementPositions(unsigned int numberOf
 
 void cEnemyManager::NavigateToNextPosition(double deltaTime)
 {
-    if (m_CurrentPositionIndex + 1 >= m_BeePositions.size())
+    if (m_CurrentPositionIndex + 1 >= m_EnemyPositions.size())
     {
         m_FinishedIntroNavigation = true;
         m_IsMovingToGrid = true;
         m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType);
-        m_BeePositions.push_back(m_GridPosition);
+        m_EnemyPositions.push_back(m_GridPosition);
         return;
     }
 
     glm::vec3 currentPosition = m_EnemyMesh->drawPosition;
-    glm::vec3 lastPosition = m_BeePositions[m_CurrentPositionIndex];
-    glm::vec3 nextPosition = m_BeePositions[m_CurrentPositionIndex + 1];
+    glm::vec3 lastPosition = m_EnemyPositions[m_CurrentPositionIndex];
+    glm::vec3 nextPosition = m_EnemyPositions[m_CurrentPositionIndex + 1];
 
     glm::vec3 directionToNext = glm::normalize(nextPosition - lastPosition);
 
@@ -58,6 +58,69 @@ void cEnemyManager::NavigateToNextPosition(double deltaTime)
     }
 }
 
+void cEnemyManager::NavigateToNextPositionOnBezierCurve(double deltaTime)
+{
+    //if (m_CurrentPositionIndex + 1 >= m_EnemyPositions.size())
+    //{
+    //    m_FinishedIntroNavigation = true;
+    //    m_IsMovingToGrid = true;
+    //    m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType);
+    //    m_EnemyPositions.push_back(m_GridPosition);
+    //    return;
+    //}
+
+    if (m_ElapsedTime > m_TimeToMove)
+    {
+        m_IsMakingRound = true;
+        m_ElapsedTime = 0.0;
+        return;
+    }
+
+    double t = m_ElapsedTime / m_TimeToMove;
+
+    double u = 1.0 - t;
+
+    glm::vec3 bezierPosition =
+        (float)(u * u * u) * m_IntroBezierControlPoints[0] +                    // (1-t)^3 * P0
+        (float)(3 * u * u * t) * m_IntroBezierControlPoints[1] +                // 3(1-t)^2 * t * P1
+        (float)(3 * u * t * t) * m_IntroBezierControlPoints[2] +                // 3(1-t) * t^2 * P2
+        (float)(t * t * t) * m_IntroBezierControlPoints[3];                     // t^3 * P3
+
+    m_LastPosition = m_EnemyMesh->drawPosition;
+    m_EnemyMesh->drawPosition = bezierPosition;
+    m_CurrentPosition = bezierPosition;
+}
+
+void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
+{
+    if (m_ElapsedTime > m_TimeToMakeRound)
+    {
+        m_EnemyPositions.clear();
+        m_EnemyPositions.push_back(m_EnemyMesh->drawPosition);
+
+        m_IsMakingRound = false;
+        m_FinishedIntroNavigation = true;
+        m_IsMovingToGrid = true;
+        m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType);
+        m_EnemyPositions.push_back(m_GridPosition);
+        return;
+    }
+
+    double t = m_ElapsedTime / m_TimeToMakeRound;
+
+    double u = 1.0 - t;
+
+    glm::vec3 bezierPosition =
+        (float)(u * u * u) * m_RoundBezierControlPoints[0] +                    // (1-t)^3 * P0
+        (float)(3 * u * u * t) * m_RoundBezierControlPoints[1] +                // 3(1-t)^2 * t * P1
+        (float)(3 * u * t * t) * m_RoundBezierControlPoints[2] +                // 3(1-t) * t^2 * P2
+        (float)(t * t * t) * m_RoundBezierControlPoints[3];                     // t^3 * P3
+
+    m_LastPosition = m_EnemyMesh->drawPosition;
+    m_EnemyMesh->drawPosition = bezierPosition;
+    m_CurrentPosition = bezierPosition;
+}
+
 void cEnemyManager::NavigateToGrid(double deltaTime)
 {
     if (glm::distance(m_CurrentPosition, m_GridPosition) < 10.0f)
@@ -69,7 +132,7 @@ void cEnemyManager::NavigateToGrid(double deltaTime)
     }
 
     glm::vec3 currentPosition = m_EnemyMesh->drawPosition;
-    glm::vec3 lastPosition = m_BeePositions[m_CurrentPositionIndex];
+    glm::vec3 lastPosition = m_EnemyPositions[m_CurrentPositionIndex];
     glm::vec3 nextPosition = m_GridPosition;
 
     glm::vec3 directionToNext = glm::normalize(nextPosition - lastPosition);
@@ -85,7 +148,7 @@ void cEnemyManager::NavigateToGrid(double deltaTime)
 
 void cEnemyManager::NavigateForSkirmish(double deltaTime)
 {
-    if (m_CurrentPositionIndex + 1 >= m_BeePositions.size())
+    if (m_CurrentPositionIndex + 1 >= m_EnemyPositions.size())
     {
         FinishSkirmish();
 
@@ -93,8 +156,8 @@ void cEnemyManager::NavigateForSkirmish(double deltaTime)
     }
 
     glm::vec3 currentPosition = m_EnemyMesh->drawPosition;
-    glm::vec3 lastPosition = m_BeePositions[m_CurrentPositionIndex];
-    glm::vec3 nextPosition = m_BeePositions[m_CurrentPositionIndex + 1];
+    glm::vec3 lastPosition = m_EnemyPositions[m_CurrentPositionIndex];
+    glm::vec3 nextPosition = m_EnemyPositions[m_CurrentPositionIndex + 1];
 
     glm::vec3 directionToNext = glm::normalize(nextPosition - lastPosition);
 
@@ -133,30 +196,39 @@ cEnemyManager::cEnemyManager(std::string enemyType, cMesh* mesh, glm::vec3 initi
 
 void cEnemyManager::SetLeftToRightIntroMovement()
 {
-    m_BeePositions = m_2DNavigation.BeeIntroPositions();
+    m_EnemyPositions = m_2DNavigation.BeeIntroPositions();
     m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_BeePositions[m_CurrentPositionIndex];
+    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
 }
 
 void cEnemyManager::SetRightToLeftIntroMovement()
 {
-    m_BeePositions = m_2DNavigation.GetInvertedBeeIntro();
+    m_EnemyPositions = m_2DNavigation.GetInvertedBeeIntro();
     m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_BeePositions[m_CurrentPositionIndex];
+    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
 }
 
 void cEnemyManager::SetLeftToRightFullCircleIntroMovement()
 {
-    m_BeePositions = m_2DNavigation.MothAndButterfliesIntroPositions();
+    m_EnemyPositions = m_2DNavigation.MothAndButterfliesIntroPositions();
     m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_BeePositions[m_CurrentPositionIndex];
+    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
 }
 
 void cEnemyManager::SetRightToLeftFullCircleIntroMovement()
 {
-    m_BeePositions = m_2DNavigation.GetInvertedMothAndButterfliesIntro();
+    m_EnemyPositions = m_2DNavigation.GetInvertedMothAndButterfliesIntro();
     m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_BeePositions[m_CurrentPositionIndex];
+    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
+}
+
+void cEnemyManager::SetBezierIntroMovement()
+{
+    m_IntroBezierControlPoints = m_2DNavigation.GetBeeIntroBezierControlPoints();
+    m_RoundBezierControlPoints = m_2DNavigation.GetBeeRoundBezierControlPoints();
+
+    m_CurrentPositionIndex = 0;
+    m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
 }
 
 void cEnemyManager::StartMoving(glm::vec3 position)
@@ -176,19 +248,19 @@ void cEnemyManager::StartMovingToGrid()
 void cEnemyManager::StartSkirmishing()
 {
     m_EnemySpeed = 20.0f;
-    m_BeePositions.clear();
+    m_EnemyPositions.clear();
 
     if (m_EnemyType == "bee")
     {
-        m_BeePositions = m_2DNavigation.GetBeeSkirmishMovement(m_EnemyMesh->drawPosition);
+        m_EnemyPositions = m_2DNavigation.GetBeeSkirmishMovement(m_EnemyMesh->drawPosition);
     }
     else if (m_EnemyType == "butterfly")
     {
-        m_BeePositions = m_2DNavigation.GetButterflySkirmishMovement(m_EnemyMesh->drawPosition);
+        m_EnemyPositions = m_2DNavigation.GetButterflySkirmishMovement(m_EnemyMesh->drawPosition);
     }
     else if (m_EnemyType == "moth")
     {
-        m_BeePositions = m_2DNavigation.GetMothSkirmishMovement(m_EnemyMesh->drawPosition);
+        m_EnemyPositions = m_2DNavigation.GetMothSkirmishMovement(m_EnemyMesh->drawPosition);
     }
 
     m_XStartPosition = m_EnemyMesh->drawPosition.x;
@@ -209,9 +281,9 @@ void cEnemyManager::FinishSkirmish()
     }
 
     m_IsMovingToGrid = true;
-    m_BeePositions.clear();
-    m_BeePositions.push_back(m_EnemyMesh->drawPosition);
-    m_BeePositions.push_back(m_GridPosition);
+    m_EnemyPositions.clear();
+    m_EnemyPositions.push_back(m_EnemyMesh->drawPosition);
+    m_EnemyPositions.push_back(m_GridPosition);
     m_CurrentPositionIndex = 0;
     m_IsInGrid = false;
     m_IsSkirmishing = false;
@@ -239,12 +311,26 @@ void cEnemyManager::UpdatePosition(double deltaTime)
         return;
     }
 
+
     if (!m_FinishedIntroNavigation)
     {
-        NavigateToNextPosition(deltaTime);
+        m_ElapsedTime += deltaTime;
+
+        if (m_IsMakingRound)
+        {
+            MakeRoundOnBezierCurve(deltaTime);
+        }
+        else
+        {
+            NavigateToNextPositionOnBezierCurve(deltaTime);
+        }
+
+        //NavigateToNextPosition(deltaTime);
     }
     else
     {
+        m_ElapsedTime = 0.0;
+
         if (m_IsMovingToGrid)
         {
             NavigateToGrid(deltaTime);

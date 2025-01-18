@@ -15,7 +15,7 @@ std::vector<glm::vec3> c2DNavigation::BeeIntroPositions()
 
     float initialRadian = 0.0f;
     constexpr float finalRadian = glm::pi<float>();
-    float step = 0.2f;
+    float step = 0.05f;
     float radius = 400.0f;
 
     for (float radian = initialRadian; radian <= finalRadian; radian += step) 
@@ -192,4 +192,28 @@ std::vector<glm::vec3> c2DNavigation::GetMothSkirmishMovement(glm::vec3 firstPos
     float step = 0.2f;
 
     return positions;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetBeeIntroBezierControlPoints()
+{
+    std::vector<glm::vec3> controlPoints;
+
+    controlPoints.push_back(glm::vec3(-300.0f, 1500.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-300.0f, 1300.f, 0.0f));
+    controlPoints.push_back(glm::vec3(0.0f, 500.f, 0.0f));
+    controlPoints.push_back(glm::vec3(800.0f, -200.f, 0.0f));
+
+    return controlPoints;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetBeeRoundBezierControlPoints()
+{
+    std::vector<glm::vec3> controlPoints;
+
+    controlPoints.push_back(glm::vec3(800.0f, -200.f, 0.0f));
+    controlPoints.push_back(glm::vec3(800.0f, -1000.f, 0.0f));
+    controlPoints.push_back(glm::vec3(400.0f, -1000.f, 0.0f));
+    controlPoints.push_back(glm::vec3(0.0f, -200.f, 0.0f));
+
+    return controlPoints;
 }

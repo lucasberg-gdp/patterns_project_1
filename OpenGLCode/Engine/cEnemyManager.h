@@ -38,20 +38,31 @@ private:
 	cMesh* m_EnemyMesh = nullptr;
 
 	c2DNavigation m_2DNavigation;
-	std::vector<glm::vec3> m_BeePositions;
+	std::vector<glm::vec3> m_EnemyPositions;
+
+	std::vector<glm::vec3> m_IntroBezierControlPoints;
+	std::vector<glm::vec3> m_RoundBezierControlPoints;
 
 	std::vector<glm::vec3> GetMovementPositions(unsigned int numberOfPositions, glm::vec3 intialPosition, glm::vec3 finalPosition);
 
 	int m_CurrentPositionIndex = 0;
 	bool m_FinishedIntroNavigation = false;
 	void NavigateToNextPosition(double deltaTime);
+	void NavigateToNextPositionOnBezierCurve(double deltaTime);
+	void MakeRoundOnBezierCurve(double deltaTime);
 	void NavigateToGrid(double deltaTime);
 	void NavigateForSkirmish(double deltaTime);
 
 	bool m_IsMovingToGrid = false;
 	bool m_IsInGrid = false;
 
+	bool m_IsMakingRound = false;
+
 public:
+	double m_ElapsedTime = 0.0;
+	double m_TimeToMove = 3.0;
+	double m_TimeToMakeRound = 1.5;
+
 	std::string m_EnemyType;
 
 	cEnemyManager() {}
@@ -63,6 +74,8 @@ public:
 
 	void SetLeftToRightFullCircleIntroMovement();
 	void SetRightToLeftFullCircleIntroMovement();
+
+	void SetBezierIntroMovement();
 
 	void StartMoving(glm::vec3 position);
 	void StartMovingToGrid();

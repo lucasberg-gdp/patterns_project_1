@@ -15,6 +15,10 @@
 #include "cGameGrid.h"
 #include "cScore.h"
 #include "cWorldText.h"
+#include "cEnemyManager.h"
+#include "cCommandGroup.h"
+#include "cCommandFactory.h"
+#include "cCommandManager.h"
 
 class cScene
 {
@@ -31,6 +35,10 @@ class cScene
 	void UpdateGameObjects(double deltaTime);
 
 public:
+	cCommandGroup* m_commandGroup = nullptr;
+	cCommandManager* m_commandManager = nullptr;
+	cCommandFactory* m_commandFactory = nullptr;
+
 	std::string m_sceneName;
 
 	cPhysics* m_scenePhysics = nullptr;

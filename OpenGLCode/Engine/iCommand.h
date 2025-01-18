@@ -1,25 +1,23 @@
 #pragma once
+// All commands have this interface
 
-#include <string>
+// This would benefit form being part of an Abstract Factory pattern.
+// Because all the commands are "a type of iCommand"
 
 class iCommand
 {
 public:
+	enum class MoveType {
+		Linear,
+		EasyIn,
+		EasyOut,
+		EasyInAndOut
+	};
+
+	// Pure virtual objects require a virtual destructor (because C++)
 	virtual ~iCommand() {};
-
-	virtual void Initialize(void* pParams) = 0;
-	virtual void Initialize(std::string initParams) = 0;
-	// Called every frame/step:
-	// Returns true when command is done
-	virtual bool Update(double deltaTime) = 0;
-
-	// Called every frame/step
-	// returns true when done
-	virtual bool isDone(void) = 0;
-
-	// Optional: Called before the 1st Update
-	virtual bool PreStart(void) = 0;
-	// Optional: Called after isDone() returns true
-	virtual bool PostEnd(void) = 0;
+	virtual void Start(void) = 0;
+	virtual void Update(double deltaTime) = 0;
+	virtual bool isFinished(void) = 0;
+	virtual void OnFinished(void) = 0;
 };
-

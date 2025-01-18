@@ -209,6 +209,48 @@ bool cLightManager::GetLightByFriendlyName(std::string friendlyName, cLight& lig
 	return false;
 }
 
+bool cLightManager::SetLightPosition(std::string friendlyName, glm::vec4 position)
+{
+	for (unsigned int i = 0; i < NUMBER_OF_LIGHTS_IM_USING; i++)
+	{
+		if (theLights[i].lightFriendlyName == friendlyName)
+		{
+			theLights[i].position = position;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool cLightManager::SetLightOrientation(std::string friendlyName, glm::vec4 orientation)
+{
+	for (unsigned int i = 0; i < NUMBER_OF_LIGHTS_IM_USING; i++)
+	{
+		if (theLights[i].lightFriendlyName == friendlyName)
+		{
+			theLights[i].direction = orientation;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool cLightManager::SetLightAttenuation(std::string lightName, glm::vec4 attenuation)
+{
+	for (unsigned int i = 0; i < NUMBER_OF_LIGHTS_IM_USING; i++)
+	{
+		if (theLights[i].lightFriendlyName == lightName)
+		{
+			theLights[i].atten = attenuation;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 std::vector<sLightsInfo> cLightManager::SerializeLight()
 {
 	std::vector<sLightsInfo> lightsInfoVector;
@@ -266,6 +308,28 @@ void cLightManager::Update(double deltaTime)
 	}
 }
 
+void cLightManager::TurnOnLightByFriendlyName(std::string friendlyName)
+{
+	for (unsigned int i = 0; i < NUMBER_OF_LIGHTS_IM_USING; i++)
+	{
+		if (theLights[i].lightFriendlyName == friendlyName)
+		{
+			theLights[i].param2.x = 1.0f;
+		}
+	}
+}
+
+void cLightManager::TurnOffLightByFriendlyName(std::string friendlyName)
+{
+	for (unsigned int i = 0; i < NUMBER_OF_LIGHTS_IM_USING; i++)
+	{
+		if (theLights[i].lightFriendlyName == friendlyName)
+		{
+			theLights[i].param2.x = 0.0f;
+		}
+	}
+}
+
 void cLightManager::TurnOffAllLights()
 {
 	for (unsigned int i = 0; i < NUMBER_OF_LIGHTS_IM_USING; i++)
@@ -285,3 +349,4 @@ void cLightManager::TurnOnAllLights()
 cLightManager::cLightManager()
 {
 }
+

@@ -80,7 +80,6 @@ void cBeeEnemy::Update(double deltaTime)
 
 	if (timer < 0.0)
 	{
-		//ShootBullet();
 		timer = 1.0;
 	}
 
@@ -113,6 +112,10 @@ void cBeeEnemy::SetIntroType(std::string introType)
 	else if (introType == "invertedBasicFullCircle")
 	{
 		m_EnemyManager.SetRightToLeftFullCircleIntroMovement();
+	}
+	else if (introType == "bezierIntro")
+	{
+		m_EnemyManager.SetBezierIntroMovement();
 	}
 }
 

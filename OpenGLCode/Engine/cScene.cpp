@@ -118,7 +118,7 @@ void cScene::StartScene()
 
     if (cGameManager::GetGMInstance()->showUi)
     {
-        cGameManager::GetGMInstance()->showUi = false;
+        //cGameManager::GetGMInstance()->showUi = false;
 
         g_animationSystem->m_isAnimating = true;
 

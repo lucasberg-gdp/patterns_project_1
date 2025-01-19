@@ -77,4 +77,6 @@ public:
 	void g_DrawDebugSphere(glm::vec3 position, float scale, glm::vec4 colourRGBA, double deltaTime);
 
 	void SetWindowName(std::string windowName);
+
+	void BuildProject();
 };

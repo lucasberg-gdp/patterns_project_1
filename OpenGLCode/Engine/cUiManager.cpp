@@ -8,11 +8,7 @@
 #include "cScene.h"
 #include "Engine.h"
 
-
-//extern std::vector< cGameObject* > g_gameObjects;
-
 extern cVAOManager* g_pMeshManager;
-
 extern cAnimationSystem* g_animationSystem;
 extern cScene* g_currentScene;
 extern Engine engine;
@@ -266,6 +262,11 @@ void cUiManager::Update(GLFWwindow& window)
         }
         ImGui::SameLine();
 
+        if (ImGui::Button("Build")) // Buttons return true when clicked (most widgets return true when edited/activated)
+        {
+            engine.BuildProject();
+        }
+        ImGui::SameLine();
 
         ImGui::SetWindowPos(ImVec2(0, 0));
         ImGui::End();

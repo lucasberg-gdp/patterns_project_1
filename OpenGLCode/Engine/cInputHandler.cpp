@@ -114,7 +114,7 @@ void cInputHandler::KeyDown(unsigned int key)
 {
     m_Keys[key] = true;
 
-    //std::cout << "pressed key" << key;
+    std::cout << "pressed key: " << key;
 }
 
 void cInputHandler::KeyUp(unsigned int key)
@@ -997,6 +997,11 @@ void cInputHandler::HandleInput(GLFWwindow* window) const
 
 void cInputHandler::OnPress(int key)
 {
+    if (key == 96) // `
+    {
+        cGameManager::GetGMInstance()->showUi = !cGameManager::GetGMInstance()->showUi;
+    }
+
     //float horizontalMovement = 0.0f;
 
     //if (key == 'A' || key == 'a')
@@ -1059,51 +1064,6 @@ void cInputHandler::OnPress(int key)
         //}
     }
 
-
-    //Gems midterm
-    //if (key == '1')
-    //{
-    //    std::string animationName = "Captain_Idle.dae";
-
-    //    g_animationSystem->SetAnimationByName(animationName);
-    //    std::cout << "Setting animation to: " << animationName << std::endl;
-
-    //    //std::cout << "pressed 1" << std::endl;
-    //    //g_softBody->DisconnectRandomHole();
-    //    //::g_anEmitter.Explode(1000, 10.0f, 15.0f);
-    //    //g_softBody->acceleration.z = 0.7f;
-    //}
-
-    //if (key == '2')
-    //{
-    //    std::string animationName = "Captain_Walking.dae";
-
-    //    g_animationSystem->SetAnimationByName(animationName);
-    //    std::cout << "Setting animation to: " << animationName << std::endl;
-
-    //    //g_softBody->acceleration.z = 0.0f;
-
-    //    //std::cout << "pressed 2" << std::endl;
-
-    //    //g_softBody->ActivateAllParticles();
-
-    //    //g_softBody->acceleration.y = -0.5;
-    //    //g_softBody->acceleration.z = -0.2;
-    //    //g_softBody->isFlagConnected = false;
-    //    //::g_anEmitter.Explode(1000, 10.0f, 15.0f);
-    //}
-
-    //if (key == '3')
-    //{
-    //    std::string animationName = "Captain_Running.dae";
-
-    //    g_animationSystem->SetAnimationByName(animationName);
-    //    std::cout << "Setting animation to: " << animationName << std::endl;
-
-    //    //std::cout << "pressed 3" << std::endl;
-    //    //g_softBody->ResetFlagPosition();
-    //    //::g_anEmitter.Explode(1000, 10.0f, 15.0f);
-    //}
 
     if ((key == ' ') && (currentMode == InputMode::EditorMode))
     {

@@ -40,6 +40,8 @@ private:
 	c2DNavigation m_2DNavigation;
 	std::vector<glm::vec3> m_EnemyPositions;
 
+
+
 	std::vector<glm::vec3> m_IntroBezierControlPoints;
 	std::vector<glm::vec3> m_RoundBezierControlPoints;
 
@@ -76,6 +78,9 @@ public:
 	void SetRightToLeftFullCircleIntroMovement();
 
 	void SetBezierIntroMovement();
+	void SetInvertedBezierIntroMovement();
+
+	void SetBezierIntroLeftRightMovement();
 
 	void StartMoving(glm::vec3 position);
 	void StartMovingToGrid();

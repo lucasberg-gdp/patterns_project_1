@@ -198,22 +198,86 @@ std::vector<glm::vec3> c2DNavigation::GetBeeIntroBezierControlPoints()
 {
     std::vector<glm::vec3> controlPoints;
 
-    controlPoints.push_back(glm::vec3(-300.0f, 1500.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-200.0f, 1700.f, 0.0f));
     controlPoints.push_back(glm::vec3(-300.0f, 1300.f, 0.0f));
-    controlPoints.push_back(glm::vec3(0.0f, 500.f, 0.0f));
-    controlPoints.push_back(glm::vec3(800.0f, -200.f, 0.0f));
+    controlPoints.push_back(glm::vec3(0.0f, 400.f, 0.0f));
+    controlPoints.push_back(glm::vec3(600.0f, -200.f, 0.0f));
 
     return controlPoints;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetInvertedBeeIntroBezierControlPoints()
+{
+    std::vector<glm::vec3> positions = GetBeeIntroBezierControlPoints();
+
+    for (unsigned int i = 0; i < positions.size(); i++)
+    {
+        positions[i].x *= -1.0f;
+    }
+
+    return positions;
 }
 
 std::vector<glm::vec3> c2DNavigation::GetBeeRoundBezierControlPoints()
 {
     std::vector<glm::vec3> controlPoints;
 
-    controlPoints.push_back(glm::vec3(800.0f, -200.f, 0.0f));
-    controlPoints.push_back(glm::vec3(800.0f, -1000.f, 0.0f));
-    controlPoints.push_back(glm::vec3(400.0f, -1000.f, 0.0f));
+    controlPoints.push_back(glm::vec3(600.0f, -200.f, 0.0f));
+    controlPoints.push_back(glm::vec3(600.0f, -700.f, 0.0f));
+    controlPoints.push_back(glm::vec3(100.0f, -700.f, 0.0f));
+    controlPoints.push_back(glm::vec3(0.0f, -500.f, 0.0f));
     controlPoints.push_back(glm::vec3(0.0f, -200.f, 0.0f));
 
     return controlPoints;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetInvertedBeeRoundBezierControlPoints()
+{
+    std::vector<glm::vec3> positions = GetBeeRoundBezierControlPoints();
+
+    for (unsigned int i = 0; i < positions.size(); i++)
+    {
+        positions[i].x *= -1.0f;
+    }
+
+    return positions;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetMothAndButterfliesIntroBezierControlPoints()
+{
+    std::vector<glm::vec3> controlPoints;
+
+    controlPoints.push_back(glm::vec3(-3000.0f, -1000.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-2010.0f, -810.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-1010.0f, -710.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-510.0f, -250.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-300.0f, -200.f, 0.0f));
+
+    return controlPoints;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetMothAndButterfliesRoundBezierControlPoints()
+{
+    std::vector<glm::vec3> controlPoints;
+
+    glm::vec3 centerPosition = glm::vec3(-300.0f, -200.f, 0.0f);
+    float radius = 500.0f;
+
+    controlPoints.push_back(glm::vec3(centerPosition.x + radius, centerPosition.y, centerPosition.z));
+    controlPoints.push_back(glm::vec3(centerPosition.x + (radius * 0.5f), centerPosition.y + (radius * 0.5f), centerPosition.z));
+    controlPoints.push_back(glm::vec3(centerPosition.x - (radius * 0.5f), centerPosition.y + (radius * 0.5f), centerPosition.z));
+    controlPoints.push_back(glm::vec3(centerPosition.x - radius, centerPosition.y, centerPosition.z));
+    controlPoints.push_back(glm::vec3(centerPosition.x - (radius * 0.5f), centerPosition.y - (radius * 0.5f), centerPosition.z));
+
+    return controlPoints;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetInvertedMothAndButterfliesIntroBezierControlPoints()
+{
+    return std::vector<glm::vec3>();
+}
+
+std::vector<glm::vec3> c2DNavigation::GetInvertedMothAndButterfliesRoundBezierControlPoints()
+{
+    return std::vector<glm::vec3>();
 }

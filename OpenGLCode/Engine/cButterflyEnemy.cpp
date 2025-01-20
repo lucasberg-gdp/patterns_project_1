@@ -114,6 +114,14 @@ void cButterflyEnemy::SetIntroType(std::string introType)
     {
         m_EnemyManager.SetBezierIntroMovement();
     }
+    else if (introType == "bezierInvertedIntro")
+    {
+        m_EnemyManager.SetInvertedBezierIntroMovement();
+    }
+    else if (introType == "bezierIntroFullCircle")
+    {
+        m_EnemyManager.SetBezierIntroLeftRightMovement();
+    }
 }
 
 void cButterflyEnemy::Skirmish()

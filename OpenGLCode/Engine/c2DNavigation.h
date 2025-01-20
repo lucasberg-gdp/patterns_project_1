@@ -24,6 +24,13 @@ public:
 	std::vector<glm::vec3> GetBeeIntroBezierControlPoints();
 	std::vector<glm::vec3> GetBeeRoundBezierControlPoints();
 
+	std::vector<glm::vec3> GetInvertedBeeIntroBezierControlPoints();
+	std::vector<glm::vec3> GetInvertedBeeRoundBezierControlPoints();
 
+	std::vector<glm::vec3> GetMothAndButterfliesIntroBezierControlPoints();
+	std::vector<glm::vec3> GetMothAndButterfliesRoundBezierControlPoints();
+
+	std::vector<glm::vec3> GetInvertedMothAndButterfliesIntroBezierControlPoints();
+	std::vector<glm::vec3> GetInvertedMothAndButterfliesRoundBezierControlPoints();
 };
 

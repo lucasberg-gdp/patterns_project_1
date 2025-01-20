@@ -73,8 +73,7 @@ void Game::CreateStageSquads()
     cSquad firstSquad = cSquad(4,2,true);
 
     firstSquad.SetBeesMovementType("bezierIntro");
-    firstSquad.SetButterfliesMovementType("bezierIntro");
-    //firstSquad.SetButterfliesMovementType("invertedBasicHalfCircle");
+    firstSquad.SetButterfliesMovementType("bezierInvertedIntro");
 
     squads.push_back(firstSquad);
 
@@ -82,25 +81,25 @@ void Game::CreateStageSquads()
     cSquad secondSquad = cSquad();
 
     secondSquad.CreateButterflyAndMothsSquad(4, 1, true);
-    secondSquad.SetButterfliesMovementType("basicFullCircle");
-    secondSquad.SetMothsMovementType("basicFullCircle");
+    secondSquad.SetButterfliesMovementType("bezierIntroFullCircle");
+    secondSquad.SetMothsMovementType("bezierIntroFullCircle");
 
     squads.push_back(secondSquad);
 
-    // Third squad
-    cSquad thirdSquad = cSquad(0, 8, 0, 1);
-    thirdSquad.SetButterfliesMovementType("invertedBasicFullCircle");
-    squads.push_back(thirdSquad);
+    //// Third squad
+    //cSquad thirdSquad = cSquad(0, 8, 0, 1);
+    //thirdSquad.SetButterfliesMovementType("invertedBasicFullCircle");
+    //squads.push_back(thirdSquad);
 
-    // Fourth squad
-    cSquad fourthSquad = cSquad(8, 0, 0, 1);
-    fourthSquad.SetBeesMovementType("invertedBasicHalfCircle");
-    squads.push_back(fourthSquad);
+    //// Fourth squad
+    //cSquad fourthSquad = cSquad(8, 0, 0, 1);
+    //fourthSquad.SetBeesMovementType("invertedBasicHalfCircle");
+    //squads.push_back(fourthSquad);
 
-    // Fifth squad
-    cSquad fifthSquad = cSquad(8, 0, 0, 1);
-    fifthSquad.SetBeesMovementType("basicHalfCircle");
-    squads.push_back(fifthSquad);
+    //// Fifth squad
+    //cSquad fifthSquad = cSquad(8, 0, 0, 1);
+    //fifthSquad.SetBeesMovementType("basicHalfCircle");
+    //squads.push_back(fifthSquad);
 
     // Sum all score
     for (int i = 0; i < squads.size(); i++)

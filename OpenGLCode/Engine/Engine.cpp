@@ -2388,7 +2388,6 @@ void Engine::BuildProject()
     std::wstring assetsFolderPath = WindowsUtils::GetAbsolutePath("assets");
     std::wstring docsFolderPath = WindowsUtils::GetAbsolutePath("docs");
     std::wstring devFolderPath = WindowsUtils::GetAbsolutePath("../dev");
-
     std::wstring outDirPath = WindowsUtils::GetAbsolutePath("../x64/Release");
 
     WindowsUtils::CopyFolder(assetsFolderPath, destinationPath);

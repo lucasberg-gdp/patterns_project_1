@@ -117,6 +117,10 @@ void cBeeEnemy::SetIntroType(std::string introType)
 	{
 		m_EnemyManager.SetBezierIntroMovement();
 	}
+	else if (introType == "bezierInvertedIntro")
+	{
+		m_EnemyManager.SetInvertedBezierIntroMovement();
+	}
 }
 
 void cBeeEnemy::Skirmish()

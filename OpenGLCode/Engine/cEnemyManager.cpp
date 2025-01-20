@@ -107,14 +107,14 @@ void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
     }
 
     double t = m_ElapsedTime / m_TimeToMakeRound;
-
     double u = 1.0 - t;
 
     glm::vec3 bezierPosition =
-        (float)(u * u * u) * m_RoundBezierControlPoints[0] +                    // (1-t)^3 * P0
-        (float)(3 * u * u * t) * m_RoundBezierControlPoints[1] +                // 3(1-t)^2 * t * P1
-        (float)(3 * u * t * t) * m_RoundBezierControlPoints[2] +                // 3(1-t) * t^2 * P2
-        (float)(t * t * t) * m_RoundBezierControlPoints[3];                     // t^3 * P3
+        (float)(u * u * u * u) * m_RoundBezierControlPoints[0] +                                      // (1-t)^4 * P0
+        (float)(4 * u * u * u * t) * m_RoundBezierControlPoints[1] +                              // 4(1-t)^3 * t * P1
+        (float)(6 * u * u * t * t) * m_RoundBezierControlPoints[2] +                            // 6(1-t)^2 * t^2 * P2
+        (float)(4 * u * t * t * t) * m_RoundBezierControlPoints[3] +                            // 4(1-t) * t^3 * P3
+        (float)(t * t * t * t) * m_RoundBezierControlPoints[4];
 
     m_LastPosition = m_EnemyMesh->drawPosition;
     m_EnemyMesh->drawPosition = bezierPosition;
@@ -226,6 +226,24 @@ void cEnemyManager::SetBezierIntroMovement()
 {
     m_IntroBezierControlPoints = m_2DNavigation.GetBeeIntroBezierControlPoints();
     m_RoundBezierControlPoints = m_2DNavigation.GetBeeRoundBezierControlPoints();
+
+    m_CurrentPositionIndex = 0;
+    m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
+}
+
+void cEnemyManager::SetInvertedBezierIntroMovement()
+{
+    m_IntroBezierControlPoints = m_2DNavigation.GetInvertedBeeIntroBezierControlPoints();
+    m_RoundBezierControlPoints = m_2DNavigation.GetInvertedBeeRoundBezierControlPoints();
+
+    m_CurrentPositionIndex = 0;
+    m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
+}
+
+void cEnemyManager::SetBezierIntroLeftRightMovement()
+{
+    m_IntroBezierControlPoints = m_2DNavigation.GetMothAndButterfliesIntroBezierControlPoints();
+    m_RoundBezierControlPoints = m_2DNavigation.GetMothAndButterfliesRoundBezierControlPoints();
 
     m_CurrentPositionIndex = 0;
     m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];

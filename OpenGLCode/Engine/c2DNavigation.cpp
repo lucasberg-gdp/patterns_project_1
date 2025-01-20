@@ -225,8 +225,7 @@ std::vector<glm::vec3> c2DNavigation::GetBeeRoundBezierControlPoints()
     controlPoints.push_back(glm::vec3(600.0f, -200.f, 0.0f));
     controlPoints.push_back(glm::vec3(600.0f, -700.f, 0.0f));
     controlPoints.push_back(glm::vec3(100.0f, -700.f, 0.0f));
-    controlPoints.push_back(glm::vec3(0.0f, -500.f, 0.0f));
-    controlPoints.push_back(glm::vec3(0.0f, -200.f, 0.0f));
+    controlPoints.push_back(glm::vec3(100.0f, -200.f, 0.0f));
 
     return controlPoints;
 }
@@ -249,8 +248,7 @@ std::vector<glm::vec3> c2DNavigation::GetMothAndButterfliesIntroBezierControlPoi
 
     controlPoints.push_back(glm::vec3(-3000.0f, -1000.f, 0.0f));
     controlPoints.push_back(glm::vec3(-2010.0f, -810.f, 0.0f));
-    controlPoints.push_back(glm::vec3(-1010.0f, -710.f, 0.0f));
-    controlPoints.push_back(glm::vec3(-510.0f, -250.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-510.0f, -750.f, 0.0f));
     controlPoints.push_back(glm::vec3(-300.0f, -200.f, 0.0f));
 
     return controlPoints;
@@ -260,14 +258,18 @@ std::vector<glm::vec3> c2DNavigation::GetMothAndButterfliesRoundBezierControlPoi
 {
     std::vector<glm::vec3> controlPoints;
 
-    glm::vec3 centerPosition = glm::vec3(-300.0f, -200.f, 0.0f);
+    glm::vec3 initialPosition = glm::vec3(-300.0f, -200.f, 0.0f);
     float radius = 500.0f;
 
-    controlPoints.push_back(glm::vec3(centerPosition.x + radius, centerPosition.y, centerPosition.z));
-    controlPoints.push_back(glm::vec3(centerPosition.x + (radius * 0.5f), centerPosition.y + (radius * 0.5f), centerPosition.z));
-    controlPoints.push_back(glm::vec3(centerPosition.x - (radius * 0.5f), centerPosition.y + (radius * 0.5f), centerPosition.z));
-    controlPoints.push_back(glm::vec3(centerPosition.x - radius, centerPosition.y, centerPosition.z));
-    controlPoints.push_back(glm::vec3(centerPosition.x - (radius * 0.5f), centerPosition.y - (radius * 0.5f), centerPosition.z));
+    controlPoints.push_back(glm::vec3(-300.0f, -200.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-300.0f, 300.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-800.0f, 300.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-800.0f, -200.f, 0.0f));
+
+    controlPoints.push_back(glm::vec3(-800.0f, -200.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-800.0f, -700.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-300.0f, -700.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-300.0f, -200.f, 0.0f));
 
     return controlPoints;
 }

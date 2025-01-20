@@ -109,12 +109,63 @@ void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
     double t = m_ElapsedTime / m_TimeToMakeRound;
     double u = 1.0 - t;
 
-    glm::vec3 bezierPosition =
-        (float)(u * u * u * u) * m_RoundBezierControlPoints[0] +                                      // (1-t)^4 * P0
-        (float)(4 * u * u * u * t) * m_RoundBezierControlPoints[1] +                              // 4(1-t)^3 * t * P1
-        (float)(6 * u * u * t * t) * m_RoundBezierControlPoints[2] +                            // 6(1-t)^2 * t^2 * P2
-        (float)(4 * u * t * t * t) * m_RoundBezierControlPoints[3] +                            // 4(1-t) * t^3 * P3
-        (float)(t * t * t * t) * m_RoundBezierControlPoints[4];
+    glm::vec3 bezierPosition = glm::vec3(0.0f);
+
+    if (m_RoundBezierControlPoints.size() == 4)
+    {
+        // Cubic Bezier curve
+        bezierPosition =
+            (float)(u * u * u) * m_RoundBezierControlPoints[0] + 
+            (float)(3 * u * u * t) * m_RoundBezierControlPoints[1] + 
+            (float)(3 * u * t * t) * m_RoundBezierControlPoints[2] + 
+            (float)(t * t * t) * m_RoundBezierControlPoints[3]; 
+    }
+    else if (m_RoundBezierControlPoints.size() == 5)
+    {
+        bezierPosition =
+            (float)(u * u * u * u) * m_RoundBezierControlPoints[0] +       
+            (float)(4 * u * u * u * t) * m_RoundBezierControlPoints[1] +   
+            (float)(6 * u * u * t * t) * m_RoundBezierControlPoints[2] +   
+            (float)(4 * u * t * t * t) * m_RoundBezierControlPoints[3] +   
+            (float)(t * t * t * t) * m_RoundBezierControlPoints[4];
+    }
+    else if (m_RoundBezierControlPoints.size() == 6)
+    {
+        // Quintic Bezier curve
+        bezierPosition =
+            (float)(u * u * u * u * u) * m_RoundBezierControlPoints[0] +         // (1-t)^5 * P0
+            (float)(5 * u * u * u * u * t) * m_RoundBezierControlPoints[1] +     // 5(1-t)^4 * t * P1
+            (float)(10 * u * u * u * t * t) * m_RoundBezierControlPoints[2] +    // 10(1-t)^3 * t^2 * P2
+            (float)(10 * u * u * t * t * t) * m_RoundBezierControlPoints[3] +    // 10(1-t)^2 * t^3 * P3
+            (float)(5 * u * t * t * t * t) * m_RoundBezierControlPoints[4] +     // 5(1-t) * t^4 * P4
+            (float)(t * t * t * t * t) * m_RoundBezierControlPoints[5];          // t^5 * P5
+    }
+    else if (m_RoundBezierControlPoints.size() == 8)
+    {
+        if (t <= 0.5)
+        {
+            t *= 2.0;
+            u = 1.0 - t;
+            // Cubic Bezier curve
+            bezierPosition =
+                (float)(u * u * u) * m_RoundBezierControlPoints[0] +
+                (float)(3 * u * u * t) * m_RoundBezierControlPoints[1] +
+                (float)(3 * u * t * t) * m_RoundBezierControlPoints[2] +
+                (float)(t * t * t) * m_RoundBezierControlPoints[3];
+        }
+        else
+        {
+            t -= 0.5;
+            t *= 2.0;
+            u = 1.0 - t;
+            // Cubic Bezier curve
+            bezierPosition =
+                (float)(u * u * u) * m_RoundBezierControlPoints[4] +
+                (float)(3 * u * u * t) * m_RoundBezierControlPoints[5] +
+                (float)(3 * u * t * t) * m_RoundBezierControlPoints[6] +
+                (float)(t * t * t) * m_RoundBezierControlPoints[7];
+        }
+    }
 
     m_LastPosition = m_EnemyMesh->drawPosition;
     m_EnemyMesh->drawPosition = bezierPosition;
@@ -245,6 +296,7 @@ void cEnemyManager::SetBezierIntroLeftRightMovement()
     m_IntroBezierControlPoints = m_2DNavigation.GetMothAndButterfliesIntroBezierControlPoints();
     m_RoundBezierControlPoints = m_2DNavigation.GetMothAndButterfliesRoundBezierControlPoints();
 
+    m_TimeToMakeRound = 3.0f;
     m_CurrentPositionIndex = 0;
     m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
 }

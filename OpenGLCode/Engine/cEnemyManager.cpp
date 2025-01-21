@@ -91,6 +91,20 @@ void cEnemyManager::NavigateToNextPositionOnBezierCurve(double deltaTime)
     m_CurrentPosition = bezierPosition;
 }
 
+double smoothstep(double edge0, double edge1, double x) {
+    x = (x - edge0) / (edge1 - edge0);
+    x = glm::clamp(x, 0.0, 1.0);
+    return x * x * (3 - 2 * x);
+}
+
+glm::vec3 CalculateCircularPosition(float t, glm::vec3 center, float radius, float speed)
+{
+    float angle = t * speed; // t is the normalized time [0, 1], speed controls rotation speed
+    float x = center.x + radius * cos(angle);
+    float y = center.y + radius * sin(angle);
+    return glm::vec3(x, y, center.z); // Assuming a 2D plane (x, y)
+}
+
 void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
 {
     if (m_ElapsedTime > m_TimeToMakeRound)
@@ -142,15 +156,18 @@ void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
     }
     else if (m_RoundBezierControlPoints.size() == 8)
     {
-        if (t <= 0.5)
+
+
+
+        if (t < 0.5)
         {
             t *= 2.0;
             u = 1.0 - t;
             // Cubic Bezier curve
             bezierPosition =
                 (float)(u * u * u) * m_RoundBezierControlPoints[0] +
-                (float)(3 * u * u * t) * m_RoundBezierControlPoints[1] +
-                (float)(3 * u * t * t) * m_RoundBezierControlPoints[2] +
+                (float)(3.0 * u * u * t) * m_RoundBezierControlPoints[1] +
+                (float)(3.0 * u * t * t) * m_RoundBezierControlPoints[2] +
                 (float)(t * t * t) * m_RoundBezierControlPoints[3];
         }
         else
@@ -161,8 +178,8 @@ void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
             // Cubic Bezier curve
             bezierPosition =
                 (float)(u * u * u) * m_RoundBezierControlPoints[4] +
-                (float)(3 * u * u * t) * m_RoundBezierControlPoints[5] +
-                (float)(3 * u * t * t) * m_RoundBezierControlPoints[6] +
+                (float)(3.0 * u * u * t) * m_RoundBezierControlPoints[5] +
+                (float)(3.0 * u * t * t) * m_RoundBezierControlPoints[6] +
                 (float)(t * t * t) * m_RoundBezierControlPoints[7];
         }
     }

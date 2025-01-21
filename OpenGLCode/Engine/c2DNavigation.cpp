@@ -262,13 +262,13 @@ std::vector<glm::vec3> c2DNavigation::GetMothAndButterfliesRoundBezierControlPoi
     float radius = 500.0f;
 
     controlPoints.push_back(glm::vec3(-300.0f, -200.f, 0.0f));
-    controlPoints.push_back(glm::vec3(-300.0f, 300.f, 0.0f));
-    controlPoints.push_back(glm::vec3(-800.0f, 300.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-300.0f, 100.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-800.0f, 100.f, 0.0f));
     controlPoints.push_back(glm::vec3(-800.0f, -200.f, 0.0f));
 
     controlPoints.push_back(glm::vec3(-800.0f, -200.f, 0.0f));
-    controlPoints.push_back(glm::vec3(-800.0f, -700.f, 0.0f));
-    controlPoints.push_back(glm::vec3(-300.0f, -700.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-800.0f, -500.f, 0.0f));
+    controlPoints.push_back(glm::vec3(-300.0f, -500.f, 0.0f));
     controlPoints.push_back(glm::vec3(-300.0f, -200.f, 0.0f));
 
     return controlPoints;

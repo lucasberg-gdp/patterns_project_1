@@ -7,6 +7,15 @@
 
 class c2DNavigation
 {
+	std::vector<glm::vec3> GetRoundControlPoints(glm::vec3 centerPosition, glm::vec3 startPosition, float degrees);
+
+	std::vector<glm::vec3> MoveClockwise(glm::vec3 centerPosition,
+		glm::vec3 startPosition,
+		float degrees);
+
+	std::vector<glm::vec3> MoveCounterClockwise(glm::vec3 centerPosition,
+		glm::vec3 startPosition,
+		float degrees);
 public:
 
 	std::vector<glm::vec3> BeeIntroPositions();

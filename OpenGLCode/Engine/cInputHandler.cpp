@@ -114,7 +114,7 @@ void cInputHandler::KeyDown(unsigned int key)
 {
     m_Keys[key] = true;
 
-    std::cout << "pressed key: " << key;
+    //std::cout << "pressed key: " << key;
 }
 
 void cInputHandler::KeyUp(unsigned int key)

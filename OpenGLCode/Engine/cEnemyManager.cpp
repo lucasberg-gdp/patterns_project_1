@@ -154,11 +154,19 @@ void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
             (float)(5 * u * t * t * t * t) * m_RoundBezierControlPoints[4] +     // 5(1-t) * t^4 * P4
             (float)(t * t * t * t * t) * m_RoundBezierControlPoints[5];          // t^5 * P5
     }
+    else if (m_RoundBezierControlPoints.size() == 7)
+    {
+        bezierPosition =
+            (float)(u * u * u * u * u * u) * m_RoundBezierControlPoints[0] +         // (1-t)^6 * P0
+            (float)(6 * u * u * u * u * u * t) * m_RoundBezierControlPoints[1] +     // 6(1-t)^5 * t * P1
+            (float)(15 * u * u * u * u * t * t) * m_RoundBezierControlPoints[2] +    // 15(1-t)^4 * t^2 * P2
+            (float)(20 * u * u * u * t * t * t) * m_RoundBezierControlPoints[3] +    // 20(1-t)^3 * t^3 * P3
+            (float)(15 * u * u * t * t * t * t) * m_RoundBezierControlPoints[4] +    // 15(1-t)^2 * t^4 * P4
+            (float)(6 * u * t * t * t * t * t) * m_RoundBezierControlPoints[5] +     // 6(1-t) * t^5 * P5
+            (float)(t * t * t * t * t * t) * m_RoundBezierControlPoints[6];          // t^6 * P6
+    }
     else if (m_RoundBezierControlPoints.size() == 8)
     {
-
-
-
         if (t < 0.5)
         {
             t *= 2.0;

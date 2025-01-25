@@ -2,11 +2,14 @@
 #include "cCollisionMediator.h"
 #include "cScene.h"
 #include "game.h"
+#include "cStars.h"
 
 extern cCollisionMediator* g_CollisionMediator;
 
 extern cScene* g_currentScene;
 extern Game game;
+
+extern cStars* stars;
 
 cPlayer::cPlayer()
 {
@@ -220,6 +223,7 @@ void cPlayer::GameOver()
 {
 	m_IsPlayerAlive = false;
 	g_currentScene->worldText->SetText("game over");
+	stars->DecreaseSpeed();
 }
 
 void cPlayer::DisablePlayer()

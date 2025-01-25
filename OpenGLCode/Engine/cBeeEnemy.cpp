@@ -121,6 +121,14 @@ void cBeeEnemy::SetIntroType(std::string introType)
 	{
 		m_EnemyManager.SetInvertedBezierIntroMovement();
 	}
+	else if (introType == "bezierIntroFullCircle")
+	{
+		m_EnemyManager.SetBezierIntroLeftRightMovement();
+	}
+	else if (introType == "bezierInvertedIntroFullCircle")
+	{
+		m_EnemyManager.SetBezierInvertedIntroLeftRightMovement();
+	}
 }
 
 void cBeeEnemy::Skirmish()

@@ -87,19 +87,19 @@ void Game::CreateStageSquads()
     squads.push_back(secondSquad);
 
     //// Third squad
-    //cSquad thirdSquad = cSquad(0, 8, 0, 1);
-    //thirdSquad.SetButterfliesMovementType("invertedBasicFullCircle");
-    //squads.push_back(thirdSquad);
+    cSquad thirdSquad = cSquad(0, 8, 0, 1);
+    thirdSquad.SetButterfliesMovementType("bezierInvertedIntroFullCircle");
+    squads.push_back(thirdSquad);
 
     //// Fourth squad
-    //cSquad fourthSquad = cSquad(8, 0, 0, 1);
-    //fourthSquad.SetBeesMovementType("invertedBasicHalfCircle");
-    //squads.push_back(fourthSquad);
+    cSquad fourthSquad = cSquad(8, 0, 0, 1);
+    fourthSquad.SetBeesMovementType("bezierIntroFullCircle");
+    squads.push_back(fourthSquad);
 
     //// Fifth squad
-    //cSquad fifthSquad = cSquad(8, 0, 0, 1);
-    //fifthSquad.SetBeesMovementType("basicHalfCircle");
-    //squads.push_back(fifthSquad);
+    cSquad fifthSquad = cSquad(8, 0, 0, 1);
+    fifthSquad.SetBeesMovementType("bezierInvertedIntroFullCircle");
+    squads.push_back(fifthSquad);
 
     // Sum all score
     for (int i = 0; i < squads.size(); i++)
@@ -157,6 +157,8 @@ void Game::StartGame()
 
     isInMenu = false;
 
+    stars->IncreaseSpeed();
+
     g_currentScene->worldText->SetText("");
     g_currentScene->m_Player->InstantlyRevivePlayer();
 
@@ -187,6 +189,8 @@ void Game::RestartGame()
     }
 
     isGameOver = true;
+
+    stars->IncreaseSpeed();
 
     ResetGameTimers();
 
@@ -233,6 +237,8 @@ void Game::RetryLevel()
     }
 
     isStageComplete = true;
+
+    stars->IncreaseSpeed();
 
     ResetGameTimers();
 
@@ -486,6 +492,7 @@ void Game::Update(GLFWwindow& window, double deltaTime)
 
     if (g_currentScene->score->IsStageComplete())
     {
+        stars->DecreaseSpeed();
         g_currentScene->worldText->SetText("stage complete");
         //isGameOver = true;
         isStageComplete = true;

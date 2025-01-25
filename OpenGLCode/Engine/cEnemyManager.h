@@ -81,6 +81,7 @@ public:
 	void SetInvertedBezierIntroMovement();
 
 	void SetBezierIntroLeftRightMovement();
+	void SetBezierInvertedIntroLeftRightMovement();
 
 	void StartMoving(glm::vec3 position);
 	void StartMovingToGrid();

@@ -131,6 +131,10 @@ void cMothEnemy::SetIntroType(std::string introType)
     {
         m_EnemyManager.SetBezierIntroLeftRightMovement();
     }
+    else if (introType == "bezierInvertedIntroFullCircle")
+    {
+        m_EnemyManager.SetBezierInvertedIntroLeftRightMovement();
+    }
 }
 
 void cMothEnemy::Skirmish()

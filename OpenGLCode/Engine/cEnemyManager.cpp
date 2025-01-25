@@ -326,6 +326,16 @@ void cEnemyManager::SetBezierIntroLeftRightMovement()
     m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
 }
 
+void cEnemyManager::SetBezierInvertedIntroLeftRightMovement()
+{
+    m_IntroBezierControlPoints = m_2DNavigation.GetInvertedMothAndButterfliesIntroBezierControlPoints();
+    m_RoundBezierControlPoints = m_2DNavigation.GetInvertedMothAndButterfliesRoundBezierControlPoints();
+
+    m_TimeToMakeRound = 3.0f;
+    m_CurrentPositionIndex = 0;
+    m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
+}
+
 void cEnemyManager::StartMoving(glm::vec3 position)
 {
     m_XStartPosition = position.x;

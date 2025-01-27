@@ -5,8 +5,7 @@
 extern cScene* g_currentScene;
 extern cCollisionMediator* g_CollisionMediator;
 
-cBeeEnemy::cBeeEnemy():
-	m_MovementType(cEnemyManager::movementType::Sine)
+cBeeEnemy::cBeeEnemy()
 {
 	m_EnemyMesh = new cMesh("beeEnemy");
 	m_EnemyMesh->meshName = "beeEnemy.ply";
@@ -16,7 +15,7 @@ cBeeEnemy::cBeeEnemy():
 
 	m_EnemyManager = cEnemyManager("bee", m_EnemyMesh, glm::vec3(0.0f, 1000.0f, 0.0f), glm::vec3(0.0f, -1000.0f, 0.0f), 20.0f);
 	m_EnemyManager.SelectMovementType(cEnemyManager::movementType::Sine);
-	m_EnemyManager.SetLeftToRightIntroMovement();
+	//m_EnemyManager.SetLeftToRightIntroMovement();
 }
 
 cBeeEnemy::~cBeeEnemy()
@@ -61,17 +60,6 @@ std::string cBeeEnemy::GetEnemyType()
 	return "bee";
 }
 
-cMesh* cBeeEnemy::GetEnemyMesh()
-{
-	return m_EnemyMesh;
-}
-
-void cBeeEnemy::Attack()
-{
-	m_IsAttacking = true;
-	m_EnemyManager.StartMoving(m_EnemyMesh->drawPosition);
-}
-
 void cBeeEnemy::Update(double deltaTime)
 {
 	UpdatePosition(deltaTime);
@@ -93,50 +81,6 @@ void cBeeEnemy::Update(double deltaTime)
 			m_CanShootBullet = false;
 		}
 	}
-}
-
-void cBeeEnemy::SetIntroType(std::string introType)
-{
-	if (introType == "basicHalfCircle")
-	{
-		m_EnemyManager.SetLeftToRightIntroMovement();
-	}
-	else if (introType == "invertedBasicHalfCircle")
-	{
-		m_EnemyManager.SetLeftToRightIntroMovement();
-	}
-	else if (introType == "basicFullCircle")
-	{
-		m_EnemyManager.SetLeftToRightFullCircleIntroMovement();
-	}
-	else if (introType == "invertedBasicFullCircle")
-	{
-		m_EnemyManager.SetRightToLeftFullCircleIntroMovement();
-	}
-	else if (introType == "bezierIntro")
-	{
-		m_EnemyManager.SetBezierIntroMovement();
-	}
-	else if (introType == "bezierInvertedIntro")
-	{
-		m_EnemyManager.SetInvertedBezierIntroMovement();
-	}
-	else if (introType == "bezierIntroFullCircle")
-	{
-		m_EnemyManager.SetBezierIntroLeftRightMovement();
-	}
-	else if (introType == "bezierInvertedIntroFullCircle")
-	{
-		m_EnemyManager.SetBezierInvertedIntroLeftRightMovement();
-	}
-}
-
-void cBeeEnemy::Skirmish()
-{
-	m_IsSkirmishing = true;
-	m_IsInGrid = false;
-	m_EnemyManager.StartSkirmishing();
-	m_CanShootBullet = true;
 }
 
 bool cBeeEnemy::IsDead()

@@ -337,6 +337,9 @@
     <ClCompile Include="cLuaManager.cpp">
       <Filter>Engine\Lua</Filter>
     </ClCompile>
+    <ClCompile Include="cEnemy.cpp">
+      <Filter>Game\Patterns\Builder\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cMesh.h">
@@ -650,6 +653,9 @@
     </ClInclude>
     <ClInclude Include="cLuaManager.h">
       <Filter>Engine\Lua</Filter>
+    </ClInclude>
+    <ClInclude Include="cEnemy.h">
+      <Filter>Game\Patterns\Builder\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -180,6 +180,7 @@
     <ClCompile Include="cCommandFactory.cpp" />
     <ClCompile Include="cCommandGroup.cpp" />
     <ClCompile Include="cCommandManager.cpp" />
+    <ClCompile Include="cEnemy.cpp" />
     <ClCompile Include="cEnemyBullet.cpp" />
     <ClCompile Include="cEnemyBulletFactory.cpp" />
     <ClCompile Include="cEnemyDirector.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="cCommandFactory.h" />
     <ClInclude Include="cCommandGroup.h" />
     <ClInclude Include="cCommandManager.h" />
+    <ClInclude Include="cEnemy.h" />
     <ClInclude Include="cEnemyBullet.h" />
     <ClInclude Include="cEnemyBulletFactory.h" />
     <ClInclude Include="cEnemyDirector.h" />

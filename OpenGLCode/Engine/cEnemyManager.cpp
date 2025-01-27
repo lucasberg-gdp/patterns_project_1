@@ -227,7 +227,6 @@ void cEnemyManager::NavigateForSkirmish(double deltaTime)
     if (m_CurrentPositionIndex + 1 >= m_EnemyPositions.size())
     {
         FinishSkirmish();
-
         return;
     }
 

@@ -29,6 +29,8 @@ std::vector<glm::vec3> c2DNavigation::GetRoundControlPoints(
             startPosition,
             degrees);
     }
+
+    return controlPoints;
 }
 
 std::vector<glm::vec3> c2DNavigation::MoveClockwise(glm::vec3 centerPosition, glm::vec3 startPosition, float degrees)

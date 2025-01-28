@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cMesh.h"
+#include "iEnemy.h"
 
 class cGameGrid
 {
@@ -8,6 +9,7 @@ class cGameGrid
 
 public:
 	struct GridCell {
+		iEnemy* m_EnemyAssigned = nullptr;
 		cMesh* m_MeshAssigned = nullptr;
 		glm::vec3 m_GridPosition;
 		bool m_IsTaken = false;
@@ -43,11 +45,11 @@ public:
 
 	void SetCenterPosition(glm::vec3 centerPosition);
 
-	glm::vec3 GetAvailableBeePosition();
-	glm::vec3 GetAvailableButterflyPosition();
-	glm::vec3 GetAvailableMothPosition();
+	glm::vec3 GetAvailableBeePosition(iEnemy* enemy);
+	glm::vec3 GetAvailableButterflyPosition(iEnemy* enemy);
+	glm::vec3 GetAvailableMothPosition(iEnemy* enemy);
 
-	glm::vec3 GetAvailablePosition(std::string enemyType);
+	glm::vec3 GetAvailablePosition(std::string enemyType, iEnemy* enemy);
 
 	void FillAllCellsWithEnemies();
 };

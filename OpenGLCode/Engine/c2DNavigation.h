@@ -25,6 +25,7 @@ public:
 	std::vector<glm::vec3> GetInvertedMothAndButterfliesIntro();
 
 	std::vector<glm::vec3> GetBeeSkirmishMovement(glm::vec3 firstPosition);
+	std::vector<glm::vec3> GetBeeSkirmishRoundMovement(glm::vec3 firstPosition);
 
 	std::vector<glm::vec3> GetButterflySkirmishMovement(glm::vec3 firstPosition);
 	std::vector<glm::vec3> GetMothSkirmishMovement(glm::vec3 firstPosition);

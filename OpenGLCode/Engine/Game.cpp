@@ -78,28 +78,28 @@ void Game::CreateStageSquads()
     squads.push_back(firstSquad);
 
     // Second squad
-    cSquad secondSquad = cSquad();
+    //cSquad secondSquad = cSquad();
 
-    secondSquad.CreateButterflyAndMothsSquad(4, 1, true);
-    secondSquad.SetButterfliesMovementType("bezierIntroFullCircle");
-    secondSquad.SetMothsMovementType("bezierIntroFullCircle");
+    //secondSquad.CreateButterflyAndMothsSquad(4, 1, true);
+    //secondSquad.SetButterfliesMovementType("bezierIntroFullCircle");
+    //secondSquad.SetMothsMovementType("bezierIntroFullCircle");
 
-    squads.push_back(secondSquad);
+    //squads.push_back(secondSquad);
 
-    //// Third squad
-    cSquad thirdSquad = cSquad(0, 8, 0, 1);
-    thirdSquad.SetButterfliesMovementType("bezierInvertedIntroFullCircle");
-    squads.push_back(thirdSquad);
+    ////// Third squad
+    //cSquad thirdSquad = cSquad(0, 8, 0, 1);
+    //thirdSquad.SetButterfliesMovementType("bezierInvertedIntroFullCircle");
+    //squads.push_back(thirdSquad);
 
-    //// Fourth squad
-    cSquad fourthSquad = cSquad(8, 0, 0, 1);
-    fourthSquad.SetBeesMovementType("bezierIntroFullCircle");
-    squads.push_back(fourthSquad);
+    ////// Fourth squad
+    //cSquad fourthSquad = cSquad(8, 0, 0, 1);
+    //fourthSquad.SetBeesMovementType("bezierIntroFullCircle");
+    //squads.push_back(fourthSquad);
 
-    //// Fifth squad
-    cSquad fifthSquad = cSquad(8, 0, 0, 1);
-    fifthSquad.SetBeesMovementType("bezierInvertedIntroFullCircle");
-    squads.push_back(fifthSquad);
+    ////// Fifth squad
+    //cSquad fifthSquad = cSquad(8, 0, 0, 1);
+    //fifthSquad.SetBeesMovementType("bezierInvertedIntroFullCircle");
+    //squads.push_back(fifthSquad);
 
     // Sum all score
     for (int i = 0; i < squads.size(); i++)
@@ -135,8 +135,22 @@ void Game::UpdateSkirmish(double deltaTime)
     {
         skirmishTimer = 0.0;
 
-        int randomEnemyIndex = MathUtils::GetRandomInt(0, (int)g_currentScene->enemies.size() - 1);
-        g_currentScene->enemies[randomEnemyIndex]->Skirmish();
+        std::vector<iEnemy*> activeEnemies;
+
+        for (unsigned int i = 0; i < g_currentScene->enemies.size(); i++)
+        {
+            if (g_currentScene->enemies[i]->IsInGrid())
+            {
+                iEnemy* activeEnemy = g_currentScene->enemies[i];
+                activeEnemies.push_back(activeEnemy);
+            }
+        }
+
+        if ((int)activeEnemies.size() > 0)
+        {
+            int randomEnemyIndex = MathUtils::GetRandomInt(0, (int)activeEnemies.size() - 1);
+            activeEnemies[randomEnemyIndex]->Skirmish();
+        }
     }
 }
 

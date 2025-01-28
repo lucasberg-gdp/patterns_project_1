@@ -22,4 +22,7 @@ public:
 	virtual void SetIntroType(std::string introType) = 0;
 	virtual void Attack() = 0;
 	virtual void Skirmish() = 0;
+
+	virtual bool IsInGrid() = 0;
+	virtual void SetIsInGrid(bool isInGrid) = 0;
 };

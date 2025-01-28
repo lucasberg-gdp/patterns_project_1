@@ -161,8 +161,6 @@ void cGameGrid::ResetGameGrid()
 void cGameGrid::Update(double deltaTime)
 {
     UpdatePositions(deltaTime);
-
-    //FillAllCellsWithEnemies();
 }
 
 void cGameGrid::UpdatePositions(double deltaTime)
@@ -175,7 +173,7 @@ void cGameGrid::SetCenterPosition(glm::vec3 centerPosition)
 
 }
 
-glm::vec3 cGameGrid::GetAvailableBeePosition()
+glm::vec3 cGameGrid::GetAvailableBeePosition(iEnemy* enemy)
 {
     for (unsigned int i = 0; i < m_BeeGrid.size(); i++)
     {
@@ -189,7 +187,7 @@ glm::vec3 cGameGrid::GetAvailableBeePosition()
     return glm::vec3(0.0f);
 }
 
-glm::vec3 cGameGrid::GetAvailableButterflyPosition()
+glm::vec3 cGameGrid::GetAvailableButterflyPosition(iEnemy* enemy)
 {
     for (unsigned int i = 0; i < m_ButterflyGrid.size(); i++)
     {
@@ -203,7 +201,7 @@ glm::vec3 cGameGrid::GetAvailableButterflyPosition()
     return glm::vec3(0.0f);
 }
 
-glm::vec3 cGameGrid::GetAvailableMothPosition()
+glm::vec3 cGameGrid::GetAvailableMothPosition(iEnemy* enemy)
 {
     for (unsigned int i = 0; i < m_MothGrid.size(); i++)
     {
@@ -217,21 +215,21 @@ glm::vec3 cGameGrid::GetAvailableMothPosition()
     return glm::vec3(0.0f);
 }
 
-glm::vec3 cGameGrid::GetAvailablePosition(std::string enemyType)
+glm::vec3 cGameGrid::GetAvailablePosition(std::string enemyType, iEnemy* enemy)
 {
     if (enemyType == "bee")
     {
-        return GetAvailableBeePosition();
+        return GetAvailableBeePosition(enemy);
     }
 
     if (enemyType == "butterfly")
     {
-        return GetAvailableButterflyPosition();
+        return GetAvailableButterflyPosition(enemy);
     }
 
     if (enemyType == "moth")
     {
-        return GetAvailableMothPosition();
+        return GetAvailableMothPosition(enemy);
     }
 
     return glm::vec3(0.0f);

@@ -41,4 +41,7 @@ public:
 	void SetHealth(int health) override;
 
 	cMesh* GetEnemyMesh() override;
+
+	bool IsInGrid() override;
+	void SetIsInGrid(bool isInGrid) override;
 };

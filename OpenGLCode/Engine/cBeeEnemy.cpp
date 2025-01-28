@@ -13,9 +13,8 @@ cBeeEnemy::cBeeEnemy()
 	m_EnemyMesh->isUsingVertexColors = true;
 	m_EnemyMesh->bUseDebugColours = false;
 
-	m_EnemyManager = cEnemyManager("bee", m_EnemyMesh, glm::vec3(0.0f, 1000.0f, 0.0f), glm::vec3(0.0f, -1000.0f, 0.0f), 20.0f);
+	m_EnemyManager = cEnemyManager(this, "bee", m_EnemyMesh, glm::vec3(0.0f, 1000.0f, 0.0f), glm::vec3(0.0f, -1000.0f, 0.0f), 20.0f);
 	m_EnemyManager.SelectMovementType(cEnemyManager::movementType::Sine);
-	//m_EnemyManager.SetLeftToRightIntroMovement();
 }
 
 cBeeEnemy::~cBeeEnemy()

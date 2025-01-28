@@ -28,7 +28,6 @@ class cScene
 	cUiManager* m_uiManager = nullptr;
 	cFlyCamera* m_pFlyCamera = nullptr;
 	cSkyBox* m_skyBox = nullptr;
-	//cEnemyManager* m_enemyManager = nullptr;
 
 	std::vector< iSystem* > m_systems;
 
@@ -43,7 +42,6 @@ public:
 
 	cPhysics* m_scenePhysics = nullptr;
 	std::vector< cGameObject* > m_gameObjects;
-	//std::vector< cEnemy* > g_enemies;
 
 	cLightManager* m_sceneLights = nullptr;
 

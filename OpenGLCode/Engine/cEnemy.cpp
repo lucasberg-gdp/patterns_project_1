@@ -2,23 +2,7 @@
 
 void cEnemy::SetIntroType(std::string introType)
 {
-    if (introType == "basicHalfCircle")
-    {
-        m_EnemyManager.SetLeftToRightIntroMovement();
-    }
-    else if (introType == "invertedBasicHalfCircle")
-    {
-        m_EnemyManager.SetLeftToRightIntroMovement();
-    }
-    else if (introType == "basicFullCircle")
-    {
-        m_EnemyManager.SetLeftToRightFullCircleIntroMovement();
-    }
-    else if (introType == "invertedBasicFullCircle")
-    {
-        m_EnemyManager.SetRightToLeftFullCircleIntroMovement();
-    }
-    else if (introType == "bezierIntro")
+    if (introType == "bezierIntro")
     {
         m_EnemyManager.SetBezierIntroMovement();
     }
@@ -68,4 +52,14 @@ void cEnemy::SetHealth(int health)
 cMesh* cEnemy::GetEnemyMesh()
 {
     return m_EnemyMesh;
+}
+
+bool cEnemy::IsInGrid()
+{
+    return m_IsInGrid;
+}
+
+void cEnemy::SetIsInGrid(bool isInGrid)
+{
+    m_IsInGrid = isInGrid;
 }

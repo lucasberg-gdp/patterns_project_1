@@ -244,7 +244,7 @@ std::vector<glm::vec3> c2DNavigation::GetBeeSkirmishMovement(glm::vec3 firstPosi
 
     float initialRadian = 0.0f;
     constexpr float finalRadian = glm::pi<float>();
-    float step = 0.2f;
+    float step = 0.15f;
 
     for (float radian = initialRadian; radian <= finalRadian; radian += step)
     {
@@ -255,6 +255,20 @@ std::vector<glm::vec3> c2DNavigation::GetBeeSkirmishMovement(glm::vec3 firstPosi
     }
 
     return positions;
+}
+
+std::vector<glm::vec3> c2DNavigation::GetBeeSkirmishRoundMovement(glm::vec3 firstPosition)
+{
+    std::vector<glm::vec3> controlPoints;
+
+    float radius = 500.0f;
+
+    controlPoints.push_back(firstPosition);
+    controlPoints.push_back(glm::vec3(firstPosition.x, firstPosition.y - radius, firstPosition.z));
+    controlPoints.push_back(glm::vec3(firstPosition.x, firstPosition.y - radius, firstPosition.z));
+    controlPoints.push_back(glm::vec3(firstPosition.x + (2.0f * radius), firstPosition.y, firstPosition.z));
+
+    return controlPoints;
 }
 
 std::vector<glm::vec3> c2DNavigation::GetButterflySkirmishMovement(glm::vec3 firstPosition)

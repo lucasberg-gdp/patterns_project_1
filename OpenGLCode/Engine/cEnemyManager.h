@@ -2,6 +2,7 @@
 
 #include "cMesh.h"
 #include "c2DNavigation.h"
+#include "iEnemy.h"
 
 class cEnemyManager
 {
@@ -19,6 +20,7 @@ private:
 	bool m_IsMoving = false;
 	bool m_FaceMovementDirection = true;
 	bool m_IsSkirmishing = false;
+	bool m_IsMakingSkirmishRound = false;
 
 	double m_MovementSpeed = 1.0;
 
@@ -37,10 +39,10 @@ private:
 
 	cMesh* m_EnemyMesh = nullptr;
 
+	iEnemy* m_Enemy = nullptr;
+
 	c2DNavigation m_2DNavigation;
 	std::vector<glm::vec3> m_EnemyPositions;
-
-
 
 	std::vector<glm::vec3> m_IntroBezierControlPoints;
 	std::vector<glm::vec3> m_RoundBezierControlPoints;
@@ -68,14 +70,9 @@ public:
 	std::string m_EnemyType;
 
 	cEnemyManager() {}
+	cEnemyManager(iEnemy* enemy);
 	cEnemyManager(std::string enemyType);
-	cEnemyManager(std::string enemyType, cMesh* mesh, glm::vec3 initialPosition, glm::vec3 finalPosition, double speed);
-
-	void SetLeftToRightIntroMovement();
-	void SetRightToLeftIntroMovement();
-
-	void SetLeftToRightFullCircleIntroMovement();
-	void SetRightToLeftFullCircleIntroMovement();
+	cEnemyManager(iEnemy* enemy, std::string enemyType, cMesh* mesh, glm::vec3 initialPosition, glm::vec3 finalPosition, double speed);
 
 	void SetBezierIntroMovement();
 	void SetInvertedBezierIntroMovement();
@@ -87,6 +84,8 @@ public:
 	void StartMovingToGrid();
 	void StartSkirmishing();
 	void FinishSkirmish();
+
+	void MakeRoundForSkirmish(double deltaTime);
 
 	void SelectMovementType(movementType movementType);
 

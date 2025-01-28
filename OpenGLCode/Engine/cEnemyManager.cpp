@@ -32,7 +32,7 @@ void cEnemyManager::NavigateToNextPosition(double deltaTime)
     {
         m_FinishedIntroNavigation = true;
         m_IsMovingToGrid = true;
-        m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType);
+        m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType, m_Enemy);
         m_EnemyPositions.push_back(m_GridPosition);
         return;
     }
@@ -60,15 +60,6 @@ void cEnemyManager::NavigateToNextPosition(double deltaTime)
 
 void cEnemyManager::NavigateToNextPositionOnBezierCurve(double deltaTime)
 {
-    //if (m_CurrentPositionIndex + 1 >= m_EnemyPositions.size())
-    //{
-    //    m_FinishedIntroNavigation = true;
-    //    m_IsMovingToGrid = true;
-    //    m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType);
-    //    m_EnemyPositions.push_back(m_GridPosition);
-    //    return;
-    //}
-
     if (m_ElapsedTime > m_TimeToMove)
     {
         m_IsMakingRound = true;
@@ -91,12 +82,6 @@ void cEnemyManager::NavigateToNextPositionOnBezierCurve(double deltaTime)
     m_CurrentPosition = bezierPosition;
 }
 
-double smoothstep(double edge0, double edge1, double x) {
-    x = (x - edge0) / (edge1 - edge0);
-    x = glm::clamp(x, 0.0, 1.0);
-    return x * x * (3 - 2 * x);
-}
-
 glm::vec3 CalculateCircularPosition(float t, glm::vec3 center, float radius, float speed)
 {
     float angle = t * speed; // t is the normalized time [0, 1], speed controls rotation speed
@@ -115,8 +100,10 @@ void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
         m_IsMakingRound = false;
         m_FinishedIntroNavigation = true;
         m_IsMovingToGrid = true;
-        m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType);
+        m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType, m_Enemy);
         m_EnemyPositions.push_back(m_GridPosition);
+
+        m_ElapsedTime = 0.0;
         return;
     }
 
@@ -203,6 +190,7 @@ void cEnemyManager::NavigateToGrid(double deltaTime)
     {
         m_EnemyMesh->setDrawOrientation(glm::quat(1.0f, 0.0f,0.0f,0.0f));
         m_IsInGrid = true;
+        m_Enemy->SetIsInGrid(true);
         m_IsMovingToGrid = false;
         return;
     }
@@ -226,7 +214,7 @@ void cEnemyManager::NavigateForSkirmish(double deltaTime)
 {
     if (m_CurrentPositionIndex + 1 >= m_EnemyPositions.size())
     {
-        FinishSkirmish();
+        m_IsMakingSkirmishRound = true;
         return;
     }
 
@@ -251,12 +239,18 @@ void cEnemyManager::NavigateForSkirmish(double deltaTime)
     }
 }
 
+cEnemyManager::cEnemyManager(iEnemy* enemy)
+{
+    m_Enemy = enemy;
+}
+
 cEnemyManager::cEnemyManager(std::string enemyType)
 {
     m_EnemyType = enemyType;
 }
 
-cEnemyManager::cEnemyManager(std::string enemyType, cMesh* mesh, glm::vec3 initialPosition, glm::vec3 finalPosition, double enemySpeed):
+cEnemyManager::cEnemyManager(iEnemy* enemy, std::string enemyType, cMesh* mesh, glm::vec3 initialPosition, glm::vec3 finalPosition, double enemySpeed):
+    m_Enemy(enemy),
     m_EnemyMesh(mesh),
     m_InitialPosition(initialPosition),
     m_FinalPosition(finalPosition),
@@ -267,34 +261,6 @@ cEnemyManager::cEnemyManager(std::string enemyType, cMesh* mesh, glm::vec3 initi
     m_EnemyType(enemyType)
 {
 
-}
-
-void cEnemyManager::SetLeftToRightIntroMovement()
-{
-    m_EnemyPositions = m_2DNavigation.BeeIntroPositions();
-    m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
-}
-
-void cEnemyManager::SetRightToLeftIntroMovement()
-{
-    m_EnemyPositions = m_2DNavigation.GetInvertedBeeIntro();
-    m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
-}
-
-void cEnemyManager::SetLeftToRightFullCircleIntroMovement()
-{
-    m_EnemyPositions = m_2DNavigation.MothAndButterfliesIntroPositions();
-    m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
-}
-
-void cEnemyManager::SetRightToLeftFullCircleIntroMovement()
-{
-    m_EnemyPositions = m_2DNavigation.GetInvertedMothAndButterfliesIntro();
-    m_CurrentPositionIndex = 0;
-    m_EnemyMesh->drawPosition = m_EnemyPositions[m_CurrentPositionIndex];
 }
 
 void cEnemyManager::SetBezierIntroMovement()
@@ -353,10 +319,13 @@ void cEnemyManager::StartSkirmishing()
 {
     m_EnemySpeed = 20.0f;
     m_EnemyPositions.clear();
+    m_CurrentPositionIndex = 0;
 
     if (m_EnemyType == "bee")
     {
         m_EnemyPositions = m_2DNavigation.GetBeeSkirmishMovement(m_EnemyMesh->drawPosition);
+        //m_RoundBezierControlPoints.clear();
+        //m_RoundBezierControlPoints = m_2DNavigation.GetBeeSkirmishRoundMovement(m_EnemyPositions.back());
     }
     else if (m_EnemyType == "butterfly")
     {
@@ -393,6 +362,42 @@ void cEnemyManager::FinishSkirmish()
     m_IsSkirmishing = false;
 }
 
+void cEnemyManager::MakeRoundForSkirmish(double deltaTime)
+{
+    if (m_ElapsedTime > m_TimeToMakeRound)
+    {
+        m_EnemyPositions.clear();
+        m_EnemyPositions.push_back(m_EnemyMesh->drawPosition);
+
+        m_IsMakingSkirmishRound = false;
+        m_IsMovingToGrid = true;
+        m_GridPosition = g_currentScene->gameGrid.GetAvailablePosition(m_EnemyType, m_Enemy);
+        m_EnemyPositions.push_back(m_GridPosition);
+
+        FinishSkirmish();
+        return;
+    }
+
+    double t = m_ElapsedTime / m_TimeToMakeRound;
+    double u = 1.0 - t;
+
+    glm::vec3 bezierPosition = glm::vec3(0.0f);
+
+    if (m_RoundBezierControlPoints.size() == 4)
+    {
+        // Cubic Bezier curve
+        bezierPosition =
+            (float)(u * u * u) * m_RoundBezierControlPoints[0] +
+            (float)(3 * u * u * t) * m_RoundBezierControlPoints[1] +
+            (float)(3 * u * t * t) * m_RoundBezierControlPoints[2] +
+            (float)(t * t * t) * m_RoundBezierControlPoints[3];
+    }
+
+    m_LastPosition = m_EnemyMesh->drawPosition;
+    m_EnemyMesh->drawPosition = bezierPosition;
+    m_CurrentPosition = bezierPosition;
+}
+
 void cEnemyManager::SelectMovementType(movementType movementType)
 {
     m_MovementType = movementType;
@@ -415,7 +420,6 @@ void cEnemyManager::UpdatePosition(double deltaTime)
         return;
     }
 
-
     if (!m_FinishedIntroNavigation)
     {
         m_ElapsedTime += deltaTime;
@@ -428,12 +432,9 @@ void cEnemyManager::UpdatePosition(double deltaTime)
         {
             NavigateToNextPositionOnBezierCurve(deltaTime);
         }
-
-        //NavigateToNextPosition(deltaTime);
     }
     else
     {
-        m_ElapsedTime = 0.0;
 
         if (m_IsMovingToGrid)
         {
@@ -442,6 +443,15 @@ void cEnemyManager::UpdatePosition(double deltaTime)
         else if (m_IsSkirmishing)
         {
             NavigateForSkirmish(deltaTime);
+
+            //if (m_IsMakingSkirmishRound)
+            //{
+            //    MakeRoundForSkirmish(deltaTime);
+            //}
+            //else
+            //{
+            //    NavigateForSkirmish(deltaTime);
+            //}
         }
 
         if (glm::distance(m_GridPosition, m_CurrentPosition) < 1.0f)

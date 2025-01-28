@@ -1524,17 +1524,19 @@ void Engine::LoadTexturesFromFile(std::vector<std::string>& textures)
         errors);
 
 
-    ::g_pTextureManager->SetBasePath("assets/skyboxes/MegaSun");
+    //::g_pTextureManager->SetBasePath("assets/skyboxes/MegaSun");
 
-    ::g_pTextureManager->CreateCubeTextureFromBMPFiles("megasun",
-        "MegaSunRight.bmp",
-        "MegaSunLeft.bmp",
-        "MegaSunTop.bmp",
-        "MegaSunBottom.bmp",
-        "MegaSunFront.bmp",
-        "MegaSunBack.bmp",
-        true,
-        errors);
+    //::g_pTextureManager->CreateCubeTextureFromBMPFiles("megasun",
+    //    "MegaSunRight.bmp",
+    //    "MegaSunLeft.bmp",
+    //    "MegaSunTop.bmp",
+    //    "MegaSunBottom.bmp",
+    //    "MegaSunFront.bmp",
+    //    "MegaSunBack.bmp",
+    //    true,
+    //    errors);
+
+
 
     //std::cout << errors << std::endl;
 }

@@ -18,7 +18,7 @@ public:
 
 private:
 	bool m_IsMoving = false;
-	bool m_FaceMovementDirection = true;
+	bool m_IsFacingMovementDirection = true;
 	bool m_IsSkirmishing = false;
 	bool m_IsMakingSkirmishRound = false;
 

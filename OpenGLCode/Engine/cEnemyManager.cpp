@@ -215,6 +215,7 @@ void cEnemyManager::NavigateForSkirmish(double deltaTime)
     if (m_CurrentPositionIndex + 1 >= m_EnemyPositions.size())
     {
         m_IsMakingSkirmishRound = true;
+        FinishSkirmish();
         return;
     }
 
@@ -407,7 +408,7 @@ void cEnemyManager::Update(double deltaTime)
 {
     UpdatePosition(deltaTime);
 
-    if (m_FaceMovementDirection && !m_IsInGrid)
+    if (m_IsFacingMovementDirection && !m_IsInGrid)
     {
         FaceMovementDirection();
     }
@@ -435,7 +436,6 @@ void cEnemyManager::UpdatePosition(double deltaTime)
     }
     else
     {
-
         if (m_IsMovingToGrid)
         {
             NavigateToGrid(deltaTime);

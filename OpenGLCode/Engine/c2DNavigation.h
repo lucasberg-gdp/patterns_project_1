@@ -30,7 +30,6 @@ public:
 	std::vector<glm::vec3> GetButterflySkirmishMovement(glm::vec3 firstPosition);
 	std::vector<glm::vec3> GetMothSkirmishMovement(glm::vec3 firstPosition);
 
-	// Bezier curve
 	std::vector<glm::vec3> GetBeeIntroBezierControlPoints();
 	std::vector<glm::vec3> GetBeeRoundBezierControlPoints();
 

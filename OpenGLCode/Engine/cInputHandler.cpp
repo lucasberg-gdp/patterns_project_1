@@ -1261,6 +1261,7 @@ void cInputHandler::WhilePressed(GLFWwindow* window, int key) const
         g_currentScene->m_Player->SetIsPressingRight(true);
     }
 
+    // Game Controls
     if (key == ' ')
     {
         g_currentScene->m_Player->ShootBullet();
@@ -1271,45 +1272,11 @@ void cInputHandler::WhilePressed(GLFWwindow* window, int key) const
         g_CollisionMediator->SetActive(true);
     }
 
-    //if (key == '2')
-    //{
-    //    //for (int i = 0; i < g_currentScene->enemies.size(); i++)
-    //    //{
-    //    //    g_currentScene->enemies[i]->Attack();
-    //    //}
-
-    //    game.SendFirstSquad();
-    //}
-
-    //if (key == '3')
-    //{
-    //    //for (int i = 0; i < g_currentScene->enemies.size(); i++)
-    //    //{
-    //    //    g_currentScene->enemies[i]->Attack();
-    //    //}
-
-    //    game.SendSecondSquad();
-    //}
-
-    //if (key == '4')
-    //{
-    //    game.SkirmishWithAllEnemies();
-    //}
-
     if (key == GLFW_KEY_ENTER)
     {
-        if (game.IsGameOver())
-        {
-            game.RestartGame();
-        }
-        else if (game.IsStageComplete())
-        {
-            game.RetryLevel();
-        }
-        else
-        {
-            game.StartGame();
-        }
+        game.PressEnter();
+
+
     }
 }
 

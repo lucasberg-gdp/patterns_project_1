@@ -22,7 +22,7 @@ private:
 	bool m_IsSkirmishing = false;
 	bool m_IsMakingSkirmishRound = false;
 
-	double m_MovementSpeed = 1.0;
+	double m_MovementSpeed = 10.0;
 
 	float m_XStartPosition = 0.0f;
 	float m_YAdvancedPosition = 0.0f;
@@ -64,7 +64,7 @@ private:
 
 public:
 	double m_ElapsedTime = 0.0;
-	double m_TimeToMove = 3.0;
+	double m_TimeToMove = 2.0;
 	double m_TimeToMakeRound = 1.5;
 
 	std::string m_EnemyType;

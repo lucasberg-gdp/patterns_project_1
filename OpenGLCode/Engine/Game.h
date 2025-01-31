@@ -5,7 +5,6 @@
 
 class Game : public iSystem
 {
-	//double timeForNextShip = 0.1;
 	bool isGamePaused = false;
 	bool isGameOver = false;
 	bool isStageComplete = false;
@@ -20,7 +19,7 @@ class Game : public iSystem
 
 	bool isSkirmishing = false;
 	double skirmishTimer = 0.0;
-	double skirmishCooldown = 5.5;
+	double skirmishCooldown = 2.5;
 
 	double gameStartDelayTimer = 0.0;
 	double gameStartDelay = 1.0;
@@ -46,13 +45,15 @@ public:
 	void RetryLevel();
 	void RevivePlayer();
 
+	void PressEnter();
+
 	void ResetGameTimers();
 
 	bool IsGameOver();
 	bool IsStageComplete();
 
 	std::vector<cSquad> squads;
-	double timerForNextSquad = -5.0;
+	double timerForNextSquad = -3.0;
 
 	int currentSquadIndex = 0;
 	void UpdateCurrentSquad(double deltaTime);

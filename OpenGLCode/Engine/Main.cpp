@@ -86,7 +86,7 @@ cBasicTextureManager* g_pTextureManager = NULL;
 cMesh* g_pDebugSphereMesh = NULL;
 GLuint g_DebugSphereMesh_shaderProgramID = 0;
 
-std::vector<double> g_vecLastFrameTimes;
+//std::vector<double> g_vecLastFrameTimes;
 
 std::vector<cScene*> g_scenes;
 cScene* g_currentScene = NULL;

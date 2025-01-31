@@ -24,9 +24,6 @@
 #include "cEnemyDirector.h"
 #include "cCollisionMediator.h"
 
-#include "cColor.h"
-#include "Engine.h"
-#include "Basic Shader Manager/cShaderManager.h"
 #include "cLuaManager.h"
 #include "cMoveRelativeTime.h"
 #include "cOrientTo.h"
@@ -78,28 +75,28 @@ void Game::CreateStageSquads()
     squads.push_back(firstSquad);
 
     // Second squad
-    //cSquad secondSquad = cSquad();
+    cSquad secondSquad = cSquad();
 
-    //secondSquad.CreateButterflyAndMothsSquad(4, 1, true);
-    //secondSquad.SetButterfliesMovementType("bezierIntroFullCircle");
-    //secondSquad.SetMothsMovementType("bezierIntroFullCircle");
+    secondSquad.CreateButterflyAndMothsSquad(4, 1, true);
+    secondSquad.SetButterfliesMovementType("bezierIntroFullCircle");
+    secondSquad.SetMothsMovementType("bezierIntroFullCircle");
 
-    //squads.push_back(secondSquad);
+    squads.push_back(secondSquad);
 
-    ////// Third squad
-    //cSquad thirdSquad = cSquad(0, 8, 0, 1);
-    //thirdSquad.SetButterfliesMovementType("bezierInvertedIntroFullCircle");
-    //squads.push_back(thirdSquad);
+    //// Third squad
+    cSquad thirdSquad = cSquad(0, 8, 0, 1);
+    thirdSquad.SetButterfliesMovementType("bezierInvertedIntroFullCircle");
+    squads.push_back(thirdSquad);
 
-    ////// Fourth squad
-    //cSquad fourthSquad = cSquad(8, 0, 0, 1);
-    //fourthSquad.SetBeesMovementType("bezierIntroFullCircle");
-    //squads.push_back(fourthSquad);
+    //// Fourth squad
+    cSquad fourthSquad = cSquad(8, 0, 0, 1);
+    fourthSquad.SetBeesMovementType("bezierIntroFullCircle");
+    squads.push_back(fourthSquad);
 
-    ////// Fifth squad
-    //cSquad fifthSquad = cSquad(8, 0, 0, 1);
-    //fifthSquad.SetBeesMovementType("bezierInvertedIntroFullCircle");
-    //squads.push_back(fifthSquad);
+    //// Fifth squad
+    cSquad fifthSquad = cSquad(8, 0, 0, 1);
+    fifthSquad.SetBeesMovementType("bezierInvertedIntroFullCircle");
+    squads.push_back(fifthSquad);
 
     // Sum all score
     for (int i = 0; i < squads.size(); i++)
@@ -291,11 +288,27 @@ void Game::RevivePlayer()
 
 }
 
+void Game::PressEnter()
+{
+    if (IsGameOver())
+    {
+        RestartGame();
+    }
+    else if (IsStageComplete())
+    {
+        RetryLevel();
+    }
+    else
+    {
+        StartGame();
+    }
+}
+
 void Game::ResetGameTimers()
 {
     squadTimer = 0.0;
     skirmishTimer = 0.0;
-    timerForNextSquad = -5.0;
+    timerForNextSquad = -3.0;
     gameStartDelayTimer = 0.0;
 }
 
@@ -326,7 +339,7 @@ void Game::UpdateCurrentSquad(double deltaTime)
         {
             timerForNextSquad += deltaTime;
 
-            if (timerForNextSquad > 5.0f)
+            if (timerForNextSquad > 3.0f)
             {
                 SendNextSquad();
                 timerForNextSquad = 0.0;

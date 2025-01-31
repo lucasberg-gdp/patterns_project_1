@@ -60,9 +60,6 @@ extern cStars* stars;
 
 cEnemyBuilder builder;
 
-std::vector<iEnemy*> leftSquad;
-std::vector<iEnemy*> rightSquad;
-std::vector<iEnemy*> bottomLeftSquad;
 
 void Game::CreateStageSquads()
 {
@@ -293,14 +290,17 @@ void Game::PressEnter()
     if (IsGameOver())
     {
         RestartGame();
+        TransitionToBattleSong();
     }
     else if (IsStageComplete())
     {
         RetryLevel();
+        TransitionToBattleSong();
     }
     else
     {
         StartGame();
+        TransitionToBattleSong();
     }
 }
 
@@ -348,6 +348,58 @@ void Game::UpdateCurrentSquad(double deltaTime)
     }
 }
 
+void Game::TransitionToBattleSong()
+{
+    isSongTransitioningToBattle = true;
+}
+
+void Game::TransitionToMenuSong()
+{
+    isSongTransitioningToMenu = true;
+}
+
+void Game::UpdateSounds(double deltaTime)
+{
+    if (isSongTransitioningToBattle)
+    {
+        float currentVolume = mediaPlayer->GetVolume();
+        float newVolume = currentVolume - (float)deltaTime;
+
+        mediaPlayer->SetVolume(newVolume);
+
+        if (newVolume < 0.0f)
+        {
+            mediaPlayer->PlayAudio("battle.wav");
+            //mediaPlayer->SetVolume(1.0f);
+            isSongTransitioningToBattle = false;
+        }
+    }
+    else if (isSongTransitioningToMenu)
+    {
+        float currentVolume = mediaPlayer->GetVolume();
+        float newVolume = currentVolume - (float)deltaTime * soundTransitionSpeed;
+
+        mediaPlayer->SetVolume(newVolume);
+
+        if (newVolume < 0.0f)
+        {
+            mediaPlayer->PlayAudio("menu.wav");
+            //mediaPlayer->SetVolume(1.0f);
+            isSongTransitioningToMenu = false;
+        }
+    }
+    else
+    {
+        float currentVolume = mediaPlayer->GetVolume();
+        float newVolume = currentVolume + (float)deltaTime * soundTransitionSpeed;
+
+        if (newVolume <= 1.0f)
+        {
+            mediaPlayer->SetVolume(newVolume);
+        }
+    }
+}
+
 Game::Game()
 {
 
@@ -373,6 +425,12 @@ void Game::Awake(GLFWwindow& window)
 
 void Game::Start(GLFWwindow& window)
 {
+    mediaPlayer = new cMediaPlayer();
+    mediaPlayer->Initialize();
+    mediaPlayer->PlayAudio("menu.wav");
+    mediaPlayer->SetLooping(true);
+    //soundsPlaying.push_back(mediaPlayer);
+
     g_CollisionMediator = new cCollisionMediator();
 
     g_currentScene->m_Player = new cPlayer(3);
@@ -402,6 +460,8 @@ void Game::EarlyUpdate(GLFWwindow& window, double deltaTime)
 
 void Game::Update(GLFWwindow& window, double deltaTime)
 {
+    UpdateSounds(deltaTime);
+
     if (isGamePaused)
     {
         return;
@@ -441,6 +501,7 @@ void Game::Update(GLFWwindow& window, double deltaTime)
     {
         stars->DecreaseSpeed();
         g_currentScene->worldText->SetText("stage complete");
+        TransitionToMenuSong();
         //isGameOver = true;
         isStageComplete = true;
     }
@@ -461,78 +522,78 @@ std::string Game::GetSystemType()
     return "Game";
 }
 
-void Game::SendFirstSquad()
-{
-    if (isFirstSquadRunning)
-    {
-        return;
-    }
-
-    isFirstSquadRunning = true;
-
-    cEnemyDirector director = cEnemyDirector(&builder);
-
-    //Four bees right to left
-    int numberOfBees = 4;
-    for (int i = 0; i < numberOfBees; i++)
-    {
-        iEnemy* beeEnemy = director.CreateBeeEnemy();
-        cMesh* beeMesh = beeEnemy->GetEnemyMesh();
-        beeMesh->bIsVisible = false;
-        g_currentScene->AddMesh(beeMesh);
-        g_currentScene->enemies.push_back(beeEnemy);
-        g_CollisionMediator->AddEnemy(beeEnemy);
-        rightSquad.push_back(beeEnemy);
-    }
-
-    //Four butterflies
-    int numberOfButterflies = 4;
-    for (int i = 0; i < numberOfButterflies; i++)
-    {
-        iEnemy* butterflyEnemy = director.CreateButterflyEnemy();
-        cMesh* butterflyMesh = butterflyEnemy->GetEnemyMesh();
-        butterflyMesh->bIsVisible = false;
-        g_currentScene->AddMesh(butterflyMesh);
-        g_currentScene->enemies.push_back(butterflyEnemy);
-        g_CollisionMediator->AddEnemy(butterflyEnemy);
-        leftSquad.push_back(butterflyEnemy);
-    }
-}
-
-void Game::SendSecondSquad()
-{
-    if (isSecondSquadRunning)
-    {
-        return;
-    }
-
-    isSecondSquadRunning = true;
-
-    cEnemyDirector director = cEnemyDirector(&builder);
-
-    //Four butterflies
-    int numberOfButterflies = 4;
-    for (int i = 0; i < numberOfButterflies; i++)
-    {
-        iEnemy* butterflyEnemy = director.CreateButterflyEnemy();
-        cMesh* butterflyMesh = butterflyEnemy->GetEnemyMesh();
-        butterflyEnemy->SetIntroType("basicFullCircle");
-        butterflyMesh->bIsVisible = false;
-        g_currentScene->AddMesh(butterflyMesh);
-        g_currentScene->enemies.push_back(butterflyEnemy);
-        g_CollisionMediator->AddEnemy(butterflyEnemy);
-        bottomLeftSquad.push_back(butterflyEnemy);
-
-        iEnemy* mothEnemy = director.CreateMothEnemy();
-        mothEnemy->SetIntroType("basicFullCircle");
-        cMesh* mothMesh = mothEnemy->GetEnemyMesh();
-        mothMesh->bIsVisible = false;
-        g_currentScene->AddMesh(mothMesh);
-        g_currentScene->enemies.push_back(mothEnemy);
-        g_CollisionMediator->AddEnemy(mothEnemy);
-        bottomLeftSquad.push_back(mothEnemy);
-    }
-}
+//void Game::SendFirstSquad()
+//{
+//    if (isFirstSquadRunning)
+//    {
+//        return;
+//    }
+//
+//    isFirstSquadRunning = true;
+//
+//    cEnemyDirector director = cEnemyDirector(&builder);
+//
+//    //Four bees right to left
+//    int numberOfBees = 4;
+//    for (int i = 0; i < numberOfBees; i++)
+//    {
+//        iEnemy* beeEnemy = director.CreateBeeEnemy();
+//        cMesh* beeMesh = beeEnemy->GetEnemyMesh();
+//        beeMesh->bIsVisible = false;
+//        g_currentScene->AddMesh(beeMesh);
+//        g_currentScene->enemies.push_back(beeEnemy);
+//        g_CollisionMediator->AddEnemy(beeEnemy);
+//        rightSquad.push_back(beeEnemy);
+//    }
+//
+//    //Four butterflies
+//    int numberOfButterflies = 4;
+//    for (int i = 0; i < numberOfButterflies; i++)
+//    {
+//        iEnemy* butterflyEnemy = director.CreateButterflyEnemy();
+//        cMesh* butterflyMesh = butterflyEnemy->GetEnemyMesh();
+//        butterflyMesh->bIsVisible = false;
+//        g_currentScene->AddMesh(butterflyMesh);
+//        g_currentScene->enemies.push_back(butterflyEnemy);
+//        g_CollisionMediator->AddEnemy(butterflyEnemy);
+//        leftSquad.push_back(butterflyEnemy);
+//    }
+//}
+//
+//void Game::SendSecondSquad()
+//{
+//    if (isSecondSquadRunning)
+//    {
+//        return;
+//    }
+//
+//    isSecondSquadRunning = true;
+//
+//    cEnemyDirector director = cEnemyDirector(&builder);
+//
+//    //Four butterflies
+//    int numberOfButterflies = 4;
+//    for (int i = 0; i < numberOfButterflies; i++)
+//    {
+//        iEnemy* butterflyEnemy = director.CreateButterflyEnemy();
+//        cMesh* butterflyMesh = butterflyEnemy->GetEnemyMesh();
+//        butterflyEnemy->SetIntroType("basicFullCircle");
+//        butterflyMesh->bIsVisible = false;
+//        g_currentScene->AddMesh(butterflyMesh);
+//        g_currentScene->enemies.push_back(butterflyEnemy);
+//        g_CollisionMediator->AddEnemy(butterflyEnemy);
+//        bottomLeftSquad.push_back(butterflyEnemy);
+//
+//        iEnemy* mothEnemy = director.CreateMothEnemy();
+//        mothEnemy->SetIntroType("basicFullCircle");
+//        cMesh* mothMesh = mothEnemy->GetEnemyMesh();
+//        mothMesh->bIsVisible = false;
+//        g_currentScene->AddMesh(mothMesh);
+//        g_currentScene->enemies.push_back(mothEnemy);
+//        g_CollisionMediator->AddEnemy(mothEnemy);
+//        bottomLeftSquad.push_back(mothEnemy);
+//    }
+//}
 
 // Lua functions
 int LuaAddSerialCommand(lua_State* L)

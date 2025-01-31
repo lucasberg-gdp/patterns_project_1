@@ -287,7 +287,7 @@ void cEnemyManager::SetBezierIntroLeftRightMovement()
     m_IntroBezierControlPoints = m_2DNavigation.GetMothAndButterfliesIntroBezierControlPoints();
     m_RoundBezierControlPoints = m_2DNavigation.GetMothAndButterfliesRoundBezierControlPoints();
 
-    m_TimeToMakeRound = 1.5f;
+    m_TimeToMakeRound = 1.2f;
     m_CurrentPositionIndex = 0;
     m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
 }
@@ -297,7 +297,7 @@ void cEnemyManager::SetBezierInvertedIntroLeftRightMovement()
     m_IntroBezierControlPoints = m_2DNavigation.GetInvertedMothAndButterfliesIntroBezierControlPoints();
     m_RoundBezierControlPoints = m_2DNavigation.GetInvertedMothAndButterfliesRoundBezierControlPoints();
 
-    m_TimeToMakeRound = 1.5f;
+    m_TimeToMakeRound = 1.2f;
     m_CurrentPositionIndex = 0;
     m_EnemyMesh->drawPosition = m_IntroBezierControlPoints[m_CurrentPositionIndex];
 }

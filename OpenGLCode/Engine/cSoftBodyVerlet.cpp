@@ -8,7 +8,7 @@
 
 extern cVAOManager* g_pMeshManager;
 extern cScene* g_currentScene;
-extern cMesh* g_particleMeshModel;
+//extern cMesh* g_particleMeshModel;
 
 //extern cMesh* tractorMesh;
 //extern cMesh* chain1Mesh;
@@ -17,7 +17,7 @@ extern cMesh* g_particleMeshModel;
 //extern cMesh* chain4Mesh;
 //extern cMesh* bridgeMesh;
 
-extern cMesh* oceanMesh;
+//extern cMesh* oceanMesh;
 
 extern Engine engine;
 
@@ -812,51 +812,51 @@ void cSoftBodyVerlet::ApplyCollision(double deltaTime)
 {
     float grounfOffset = 0.6f;
 
-    if (tag == "tractor")
-    {
-        for (sParticle* pCurrentParticle : vec_pParticles)
-        {
-            if (pCurrentParticle->isBottomParticle)
-            {
-                float lowestY = oceanMesh->GetVertexYByXAndZ(pCurrentParticle->position.x, pCurrentParticle->position.z);
+    //if (tag == "tractor")
+    //{
+    //    for (sParticle* pCurrentParticle : vec_pParticles)
+    //    {
+    //        if (pCurrentParticle->isBottomParticle)
+    //        {
+    //            float lowestY = oceanMesh->GetVertexYByXAndZ(pCurrentParticle->position.x, pCurrentParticle->position.z);
 
-                if (pCurrentParticle->position.y < lowestY + grounfOffset)
-                {
-                    pCurrentParticle->position.y = lowestY + grounfOffset;
-                }
-            }
-        }
-    }
+    //            if (pCurrentParticle->position.y < lowestY + grounfOffset)
+    //            {
+    //                pCurrentParticle->position.y = lowestY + grounfOffset;
+    //            }
+    //        }
+    //    }
+    //}
 
-    if (tag == "chain1")
-    {
-        for (sParticle* pCurrentParticle : vec_pParticles)
-        {
-            if (pCurrentParticle->isLeftBackHinge)
-            {
-                pCurrentParticle->position = pCurrentParticle->oldPosition;
-            }
-            else if (pCurrentParticle->isLeftFrontHinge)
-            {
-                pCurrentParticle->position = pCurrentParticle->oldPosition;
-            }
-        }
-    }
+    //if (tag == "chain1")
+    //{
+    //    for (sParticle* pCurrentParticle : vec_pParticles)
+    //    {
+    //        if (pCurrentParticle->isLeftBackHinge)
+    //        {
+    //            pCurrentParticle->position = pCurrentParticle->oldPosition;
+    //        }
+    //        else if (pCurrentParticle->isLeftFrontHinge)
+    //        {
+    //            pCurrentParticle->position = pCurrentParticle->oldPosition;
+    //        }
+    //    }
+    //}
 
-    if (tag == "chain2")
-    {
-        for (sParticle* pCurrentParticle : vec_pParticles)
-        {
-            if (pCurrentParticle->isLeftBackHinge)
-            {
-                pCurrentParticle->position = pCurrentParticle->oldPosition;
-            }
-            else if (pCurrentParticle->isLeftFrontHinge)
-            {
-                pCurrentParticle->position = pCurrentParticle->oldPosition;
-            }
-        }
-    }
+    //if (tag == "chain2")
+    //{
+    //    for (sParticle* pCurrentParticle : vec_pParticles)
+    //    {
+    //        if (pCurrentParticle->isLeftBackHinge)
+    //        {
+    //            pCurrentParticle->position = pCurrentParticle->oldPosition;
+    //        }
+    //        else if (pCurrentParticle->isLeftFrontHinge)
+    //        {
+    //            pCurrentParticle->position = pCurrentParticle->oldPosition;
+    //        }
+    //    }
+    //}
 
     //	this->vec_pParticles[5'000]->position = glm::vec3(0.0f, 30.0f, 0.0f);
 

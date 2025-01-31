@@ -331,6 +331,7 @@ void cMediaPlayer::SetVolume(float volume)
 		return;
 	}
 
+	m_CurrentVolume = volume;
 	m_AudioManager->SetVolume(volume);
 }
 

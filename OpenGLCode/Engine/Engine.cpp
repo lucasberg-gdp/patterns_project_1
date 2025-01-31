@@ -49,7 +49,7 @@ extern GLuint g_DebugSphereMesh_shaderProgramID;
 extern GLuint shaderProgramID;
 extern cBasicTextureManager* g_pTextureManager;
 extern cMesh* g_pDebugSphereMesh;
-extern cMesh* g_particleMeshModel;
+//extern cMesh* g_particleMeshModel;
 extern cMesh* g_rainMeshModel;
 extern cVAOManager* g_pMeshManager;
 extern cMesh* islandTerrain;
@@ -1087,17 +1087,17 @@ void Engine::DrawPass2(GLFWwindow* window, double deltaTime, int width, int heig
     //    DrawObject(fireMesh, matModel, shaderProgramID, deltaTime);
     //}
 
-    for (cParticleSystem::sParticleRender& particle : particleList)
-    {
-        //g_DrawDebugSphere(particle.position, 1.0f, glm::vec4(1.0f,0.0f,0.0f, 1.0f), deltaTime);
-        g_particleMeshModel->drawPosition = particle.position;
-        //g_particleMeshModel->setUniformDrawScale(1.0f);
-        g_particleMeshModel->setDrawOrientation(particle.orientation);
-        g_particleMeshModel->SetScale(particle.scaleXYZ);
-        g_particleMeshModel->isFire = true;
-        g_particleMeshModel->bDoNotLight = true;
-        DrawObject(g_particleMeshModel, matModel, shaderProgramID, deltaTime);
-    }
+    //for (cParticleSystem::sParticleRender& particle : particleList)
+    //{
+    //    //g_DrawDebugSphere(particle.position, 1.0f, glm::vec4(1.0f,0.0f,0.0f, 1.0f), deltaTime);
+    //    g_particleMeshModel->drawPosition = particle.position;
+    //    //g_particleMeshModel->setUniformDrawScale(1.0f);
+    //    g_particleMeshModel->setDrawOrientation(particle.orientation);
+    //    g_particleMeshModel->SetScale(particle.scaleXYZ);
+    //    g_particleMeshModel->isFire = true;
+    //    g_particleMeshModel->bDoNotLight = true;
+    //    DrawObject(g_particleMeshModel, matModel, shaderProgramID, deltaTime);
+    //}
 
     // rain
     //cParticalSystem::Rain();

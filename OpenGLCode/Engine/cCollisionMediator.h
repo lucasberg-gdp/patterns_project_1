@@ -6,6 +6,7 @@
 #include "iEnemy.h"
 #include "iBullet.h"
 #include "cExplosionCreator.h"
+#include "cMediaPlayer.h"
 
 class cCollisionMediator
 {
@@ -49,6 +50,8 @@ class cCollisionMediator
 			m_CollisionPosition(collisionPosition)
 		{}
 	};
+
+	cMediaPlayer* m_CollisionExplosionSound = nullptr;
 
 	cPlayer* m_Player = nullptr;
 	std::vector<iEnemy*> m_Enemies;

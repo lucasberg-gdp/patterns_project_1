@@ -2,6 +2,7 @@
 
 #include "cPlayerBulletFactory.h"
 #include "cShipMovement.h"
+#include "cMediaPlayer.h"
 
 class cPlayer
 {
@@ -20,16 +21,18 @@ class cPlayer
 
 	cMesh* m_PlayerMesh = nullptr;
 
-	int m_NumberOfExtraLives;
+	int m_NumberOfExtraLives = 1;
 	std::vector<cMesh*> m_ExtraLives;
 
 	cPlayerBulletFactory bulletFactory;
 
 	bool m_canShootBullet = true;
-	double m_BulletCooldown = 0.8f;
+	double m_BulletCooldown = 0.9f;
 	double m_BulletCooldownTimer = 0.0f;
 
 	cShipMovement m_PlayerMovement = nullptr;
+
+	cMediaPlayer* m_PlayerLaserSound = nullptr;
 
 	void UpdatePosition(double deltaTime);
 	void UpdateBulletCooldown(double deltaTime);

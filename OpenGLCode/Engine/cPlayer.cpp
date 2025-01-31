@@ -52,11 +52,14 @@ cPlayer::cPlayer(int playerLives) :
 
 		g_currentScene->AddMesh(playerShip);
 	}
+
+	m_PlayerLaserSound = new cMediaPlayer();
+	m_PlayerLaserSound->Initialize();
 }
 
 cPlayer::~cPlayer()
 {
-
+	delete m_PlayerLaserSound;
 }
 
 void cPlayer::SetPlayerMesh(cMesh* playerMesh)
@@ -176,6 +179,12 @@ void cPlayer::ShootBullet()
 	if (m_canShootBullet && !game.isInMenu)
 	{
 		bulletFactory.CreateBullet(m_PlayerMesh->drawPosition.x, m_PlayerMesh->drawPosition.y, m_PlayerMesh->drawPosition.z);
+
+
+		m_PlayerLaserSound->PlayAudio("laserLarge_002.ogg");
+		m_PlayerLaserSound->SetLooping(false);
+		game.soundsPlaying.push_back(m_PlayerLaserSound);
+
 		m_BulletCooldownTimer = m_BulletCooldown;
 	}
 }

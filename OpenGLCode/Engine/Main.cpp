@@ -86,8 +86,6 @@ cBasicTextureManager* g_pTextureManager = NULL;
 cMesh* g_pDebugSphereMesh = NULL;
 GLuint g_DebugSphereMesh_shaderProgramID = 0;
 
-//std::vector<double> g_vecLastFrameTimes;
-
 std::vector<cScene*> g_scenes;
 cScene* g_currentScene = NULL;
 
@@ -96,24 +94,6 @@ cFlyCamera* g_pFlyCamera = NULL;
 cAnimationSystem* g_animationSystem = NULL;
 
 cParticleSystem g_anEmitter;
-
-cParticleSystem* rainParticleSystem = NULL;
-cMesh* g_particleMeshModel = NULL;
-cMesh* g_rainMeshModel = NULL;
-
-cMesh* tractorMesh = nullptr;
-cMesh* chain1Mesh = nullptr;
-cMesh* chain2Mesh = nullptr;
-cMesh* chain3Mesh = nullptr;
-cMesh* chain4Mesh = nullptr;
-
-cMesh* bridgeMesh = nullptr;
-
-cMesh* oceanMesh = nullptr;
-
-cMesh* islandTerrain = nullptr;
-
-cMesh* g_rainSplashMesh = nullptr;
 
 cSoftBodyVerlet* g_softBody;
 std::vector< cSoftBodyVerlet* > chainSoftBodies;
@@ -150,9 +130,7 @@ int main(void)
 {
     srand((unsigned int)time(0));
 
-    mediaPlayer = new cMediaPlayer();
-    mediaPlayer->Initialize();
-    //mediaPlayer->PlayAudio("christmas.wav");
+
 
     GLFWwindow* window;
     if (!glfwInit())

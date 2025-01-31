@@ -15,6 +15,9 @@ cCollisionMediator::cCollisionMediator()
 
 	m_ExplosionCreator = cExplosionCreator(meshAnimations);
 	m_ExplosionCreator.SetExplosionSpeed(0.1);
+
+	m_CollisionExplosionSound = new cMediaPlayer();
+	m_CollisionExplosionSound->Initialize();
 }
 
 cCollisionMediator::~cCollisionMediator()
@@ -111,6 +114,9 @@ void cCollisionMediator::DestroyPlayer()
 	glm::vec3 playerPosition = playerMesh->drawPosition;
 
 	m_ExplosionCreator.CreateExplosion(playerPosition);
+	m_CollisionExplosionSound->PlayAudio("explosionCrunch_000.ogg");
+	m_CollisionExplosionSound->SetLooping(false);
+	//game.soundsPlaying.push_back(m_PlayerLaserSound);
 
 	playerMesh->bIsVisible = false;
 }
@@ -220,6 +226,8 @@ void cCollisionMediator::CleanUp()
 			{
 				bullet->BulletHit();
 				enemy->DamageEnemy(1);
+				m_CollisionExplosionSound->PlayAudio("explosionCrunch_000.ogg");
+				m_CollisionExplosionSound->SetLooping(false);
 			}
 		}
 	}
@@ -236,6 +244,8 @@ void cCollisionMediator::CleanUp()
 		if (!player->IsDead())
 		{
 			player->HitPlayer(1);
+			m_CollisionExplosionSound->PlayAudio("explosionCrunch_000.ogg");
+			m_CollisionExplosionSound->SetLooping(false);
 		}
 	}
 
@@ -250,6 +260,8 @@ void cCollisionMediator::CleanUp()
 		{
 			player->HitPlayer(1);
 			enemy->DamageEnemy(2);
+			m_CollisionExplosionSound->PlayAudio("explosionCrunch_000.ogg");
+			m_CollisionExplosionSound->SetLooping(false);
 		}
 	}
 

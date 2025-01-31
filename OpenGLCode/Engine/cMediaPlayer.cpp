@@ -137,6 +137,11 @@ float cMediaPlayer::GetPan() const
 	return m_CurrentPan;
 }
 
+std::string cMediaPlayer::GetSongPlaying()
+{
+	return m_CurrentFile;
+}
+
 void cMediaPlayer::PlayAudio(const char* soundFile)
 {
 	m_CurrentFile = std::string(soundFile);

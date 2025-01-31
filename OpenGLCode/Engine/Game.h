@@ -29,9 +29,11 @@ class Game : public iSystem
 	double audioTransitionTimeElapsed = 0.0;
 	void TransitionToBattleSong();
 	void TransitionToMenuSong();
-	
+
 	bool isSongTransitioningToBattle = false;
 	bool isSongTransitioningToMenu = false;
+
+	bool isTransitioningSong = false;
 	
 	double soundTransitionSpeed = 0.4f;
 	void UpdateSounds(double deltaTime);

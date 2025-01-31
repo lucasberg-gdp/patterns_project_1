@@ -350,50 +350,67 @@ void Game::UpdateCurrentSquad(double deltaTime)
 
 void Game::TransitionToBattleSong()
 {
+    isTransitioningSong = true;
+
     isSongTransitioningToBattle = true;
+    isSongTransitioningToMenu = false;
 }
 
 void Game::TransitionToMenuSong()
 {
+    isTransitioningSong = true;
+
     isSongTransitioningToMenu = true;
+    isSongTransitioningToBattle = false;
 }
 
 void Game::UpdateSounds(double deltaTime)
 {
-    if (isSongTransitioningToBattle)
+    std::string songPlaying = mediaPlayer->GetSongPlaying();
+
+    if (isTransitioningSong)
     {
-        float currentVolume = mediaPlayer->GetVolume();
-        float newVolume = currentVolume - (float)(deltaTime * soundTransitionSpeed);
-
-        mediaPlayer->SetVolume(newVolume);
-
-        if (newVolume < 0.0f)
+        if (isSongTransitioningToBattle)
         {
-            mediaPlayer->PlayAudio("battle.wav");
-            isSongTransitioningToBattle = false;
-        }
-    }
-    else if (isSongTransitioningToMenu)
-    {
-        float currentVolume = mediaPlayer->GetVolume();
-        float newVolume = currentVolume - (float)(deltaTime * soundTransitionSpeed);
+            float currentVolume = mediaPlayer->GetVolume();
+            float newVolume = currentVolume - (float)(deltaTime * soundTransitionSpeed);
 
-        mediaPlayer->SetVolume(newVolume);
-
-        if (newVolume < 0.0f)
-        {
-            mediaPlayer->PlayAudio("menu.wav");
-            isSongTransitioningToMenu = false;
-        }
-    }
-    else
-    {
-        float currentVolume = mediaPlayer->GetVolume();
-        float newVolume = currentVolume + (float)(deltaTime * soundTransitionSpeed);
-
-        if (newVolume <= 1.0f)
-        {
             mediaPlayer->SetVolume(newVolume);
+
+            if (newVolume < 0.0f)
+            {
+                mediaPlayer->PlayAudio("battle.wav");
+                isSongTransitioningToBattle = false;
+            }
+        }
+        else if (isSongTransitioningToMenu && ("menu.wav" != songPlaying))
+        {
+            float currentVolume = mediaPlayer->GetVolume();
+            float newVolume = currentVolume - (float)(deltaTime * soundTransitionSpeed);
+
+            mediaPlayer->SetVolume(newVolume);
+
+            if (newVolume < 0.0f)
+            {
+                mediaPlayer->PlayAudio("menu.wav");
+                isSongTransitioningToMenu = false;
+            }
+        }
+        else
+        {
+            float currentVolume = mediaPlayer->GetVolume();
+            float newVolume = currentVolume + (float)(deltaTime * soundTransitionSpeed);
+
+            if (newVolume <= 1.0f)
+            {
+                mediaPlayer->SetVolume(newVolume);
+            }
+            else
+            {
+                isTransitioningSong = false;
+                isSongTransitioningToMenu = false;
+                isSongTransitioningToBattle = false;
+            }
         }
     }
 }
@@ -447,7 +464,6 @@ void Game::Start(GLFWwindow& window)
 
     g_currentScene->score = new cScore();
     g_currentScene->worldText = new cWorldText();
-
 }
 
 void Game::EarlyUpdate(GLFWwindow& window, double deltaTime)
@@ -498,8 +514,10 @@ void Game::Update(GLFWwindow& window, double deltaTime)
     {
         stars->DecreaseSpeed();
         g_currentScene->worldText->SetText("stage complete");
-        TransitionToMenuSong();
-        //isGameOver = true;
+        if (!isTransitioningSong)
+        {
+            TransitionToMenuSong();
+        }
         isStageComplete = true;
     }
 }
@@ -518,79 +536,6 @@ std::string Game::GetSystemType()
 {
     return "Game";
 }
-
-//void Game::SendFirstSquad()
-//{
-//    if (isFirstSquadRunning)
-//    {
-//        return;
-//    }
-//
-//    isFirstSquadRunning = true;
-//
-//    cEnemyDirector director = cEnemyDirector(&builder);
-//
-//    //Four bees right to left
-//    int numberOfBees = 4;
-//    for (int i = 0; i < numberOfBees; i++)
-//    {
-//        iEnemy* beeEnemy = director.CreateBeeEnemy();
-//        cMesh* beeMesh = beeEnemy->GetEnemyMesh();
-//        beeMesh->bIsVisible = false;
-//        g_currentScene->AddMesh(beeMesh);
-//        g_currentScene->enemies.push_back(beeEnemy);
-//        g_CollisionMediator->AddEnemy(beeEnemy);
-//        rightSquad.push_back(beeEnemy);
-//    }
-//
-//    //Four butterflies
-//    int numberOfButterflies = 4;
-//    for (int i = 0; i < numberOfButterflies; i++)
-//    {
-//        iEnemy* butterflyEnemy = director.CreateButterflyEnemy();
-//        cMesh* butterflyMesh = butterflyEnemy->GetEnemyMesh();
-//        butterflyMesh->bIsVisible = false;
-//        g_currentScene->AddMesh(butterflyMesh);
-//        g_currentScene->enemies.push_back(butterflyEnemy);
-//        g_CollisionMediator->AddEnemy(butterflyEnemy);
-//        leftSquad.push_back(butterflyEnemy);
-//    }
-//}
-//
-//void Game::SendSecondSquad()
-//{
-//    if (isSecondSquadRunning)
-//    {
-//        return;
-//    }
-//
-//    isSecondSquadRunning = true;
-//
-//    cEnemyDirector director = cEnemyDirector(&builder);
-//
-//    //Four butterflies
-//    int numberOfButterflies = 4;
-//    for (int i = 0; i < numberOfButterflies; i++)
-//    {
-//        iEnemy* butterflyEnemy = director.CreateButterflyEnemy();
-//        cMesh* butterflyMesh = butterflyEnemy->GetEnemyMesh();
-//        butterflyEnemy->SetIntroType("basicFullCircle");
-//        butterflyMesh->bIsVisible = false;
-//        g_currentScene->AddMesh(butterflyMesh);
-//        g_currentScene->enemies.push_back(butterflyEnemy);
-//        g_CollisionMediator->AddEnemy(butterflyEnemy);
-//        bottomLeftSquad.push_back(butterflyEnemy);
-//
-//        iEnemy* mothEnemy = director.CreateMothEnemy();
-//        mothEnemy->SetIntroType("basicFullCircle");
-//        cMesh* mothMesh = mothEnemy->GetEnemyMesh();
-//        mothMesh->bIsVisible = false;
-//        g_currentScene->AddMesh(mothMesh);
-//        g_currentScene->enemies.push_back(mothEnemy);
-//        g_CollisionMediator->AddEnemy(mothEnemy);
-//        bottomLeftSquad.push_back(mothEnemy);
-//    }
-//}
 
 // Lua functions
 int LuaAddSerialCommand(lua_State* L)

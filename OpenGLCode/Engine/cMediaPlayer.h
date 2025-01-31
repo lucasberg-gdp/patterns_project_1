@@ -55,6 +55,7 @@ public:
 	float GetVolume() const;
 	float GetPitch() const;
 	float GetPan() const;
+	std::string GetSongPlaying();
 	AudioManager* GetAudioManager();
 	std::vector<std::string> GetFileNames();
 

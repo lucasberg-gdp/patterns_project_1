@@ -363,35 +363,33 @@ void Game::UpdateSounds(double deltaTime)
     if (isSongTransitioningToBattle)
     {
         float currentVolume = mediaPlayer->GetVolume();
-        float newVolume = currentVolume - (float)deltaTime;
+        float newVolume = currentVolume - (float)(deltaTime * soundTransitionSpeed);
 
         mediaPlayer->SetVolume(newVolume);
 
         if (newVolume < 0.0f)
         {
             mediaPlayer->PlayAudio("battle.wav");
-            //mediaPlayer->SetVolume(1.0f);
             isSongTransitioningToBattle = false;
         }
     }
     else if (isSongTransitioningToMenu)
     {
         float currentVolume = mediaPlayer->GetVolume();
-        float newVolume = currentVolume - (float)deltaTime * soundTransitionSpeed;
+        float newVolume = currentVolume - (float)(deltaTime * soundTransitionSpeed);
 
         mediaPlayer->SetVolume(newVolume);
 
         if (newVolume < 0.0f)
         {
             mediaPlayer->PlayAudio("menu.wav");
-            //mediaPlayer->SetVolume(1.0f);
             isSongTransitioningToMenu = false;
         }
     }
     else
     {
         float currentVolume = mediaPlayer->GetVolume();
-        float newVolume = currentVolume + (float)deltaTime * soundTransitionSpeed;
+        float newVolume = currentVolume + (float)(deltaTime * soundTransitionSpeed);
 
         if (newVolume <= 1.0f)
         {
@@ -429,7 +427,6 @@ void Game::Start(GLFWwindow& window)
     mediaPlayer->Initialize();
     mediaPlayer->PlayAudio("menu.wav");
     mediaPlayer->SetLooping(true);
-    //soundsPlaying.push_back(mediaPlayer);
 
     g_CollisionMediator = new cCollisionMediator();
 

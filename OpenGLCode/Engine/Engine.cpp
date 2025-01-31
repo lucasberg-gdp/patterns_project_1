@@ -2388,11 +2388,14 @@ void Engine::BuildProject()
     std::wstring destinationPath = WindowsUtils::GetAbsolutePath("../../build");
 
     std::wstring assetsFolderPath = WindowsUtils::GetAbsolutePath("assets");
+    std::wstring audioFolderPath = WindowsUtils::GetAbsolutePath("audio");
+
     std::wstring docsFolderPath = WindowsUtils::GetAbsolutePath("docs");
     std::wstring devFolderPath = WindowsUtils::GetAbsolutePath("../dev");
     std::wstring outDirPath = WindowsUtils::GetAbsolutePath("../x64/Release");
 
     WindowsUtils::CopyFolder(assetsFolderPath, destinationPath);
+    WindowsUtils::CopyFolder(audioFolderPath, destinationPath);
     WindowsUtils::CopyFolder(docsFolderPath, destinationPath);
     WindowsUtils::CopyFolder(devFolderPath, destinationPath);
 

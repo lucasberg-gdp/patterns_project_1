@@ -33,7 +33,7 @@ class Game : public iSystem
 	bool isSongTransitioningToBattle = false;
 	bool isSongTransitioningToMenu = false;
 	
-	double soundTransitionSpeed = 0.1f;
+	double soundTransitionSpeed = 0.4f;
 	void UpdateSounds(double deltaTime);
 public:
 	bool isInMenu = true;

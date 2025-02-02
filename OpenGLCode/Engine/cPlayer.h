@@ -27,7 +27,7 @@ class cPlayer
 	cPlayerBulletFactory bulletFactory;
 
 	bool m_canShootBullet = true;
-	double m_BulletCooldown = 0.8f;
+	double m_BulletCooldown = 0.2f;
 	double m_BulletCooldownTimer = 0.0f;
 
 	cShipMovement m_PlayerMovement = nullptr;

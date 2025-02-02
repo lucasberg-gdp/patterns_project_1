@@ -67,7 +67,7 @@ public:
 	std::vector<cMediaPlayer* > soundsPlaying;
 
 	std::vector<cSquad> squads;
-	double timerForNextSquad = -3.0;
+	double timerForNextSquad = -2.0;
 
 	int currentSquadIndex = 0;
 	void UpdateCurrentSquad(double deltaTime);

@@ -55,6 +55,8 @@ cPlayer::cPlayer(int playerLives) :
 
 	m_PlayerLaserSound = new cMediaPlayer();
 	m_PlayerLaserSound->Initialize();
+
+	m_BulletCooldown = 1.0;
 }
 
 cPlayer::~cPlayer()

@@ -381,10 +381,6 @@
     <ClInclude Include="WindowsUtils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\models\bathtub_xyz_n_rgba_uv.ply" />
-    <None Include="assets\models\Lantern_xyz_n_rgba_uv.ply" />
-    <None Include="assets\models\SM_Prop_Snowman_xyz_n_rgba_uv.ply" />
-    <None Include="assets\models\Sphere_1_unit_Radius_xyz_n_rgba_uv.ply" />
     <None Include="assets\shaders\fragmentShader01.glsl" />
     <None Include="assets\shaders\fragmentShader01_old.glsl" />
     <None Include="assets\shaders\geometryPassThrough.glsl" />

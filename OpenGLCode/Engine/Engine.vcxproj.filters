@@ -791,18 +791,6 @@
     <Filter Include="Engine\Shader Manager\Compute">
       <UniqueIdentifier>{f94b84cb-67e5-4e59-9e5f-ad8ce6acc75b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Assets">
-      <UniqueIdentifier>{b2ff66d4-a8ff-4f0e-84b0-954824ef8514}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Assets\Models">
-      <UniqueIdentifier>{fa0b086c-7793-4c0f-a305-533ddf3ae65e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Assets\Models\Ply Models">
-      <UniqueIdentifier>{11a48e7c-d598-43c3-aafc-c857786c849c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Assets\Models\Obj Models">
-      <UniqueIdentifier>{a62f3226-69c6-4c0d-a9c9-20beecc5f7a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Json">
       <UniqueIdentifier>{8b894a2f-ba48-4ccc-a5ef-614923a9473f}</UniqueIdentifier>
     </Filter>
@@ -870,18 +858,6 @@
     </None>
     <None Include="docs\Textures.json">
       <Filter>Engine\Json\Docs\Json Files</Filter>
-    </None>
-    <None Include="assets\models\Sphere_1_unit_Radius_xyz_n_rgba_uv.ply">
-      <Filter>Game\Assets\Models\Ply Models</Filter>
-    </None>
-    <None Include="assets\models\bathtub_xyz_n_rgba_uv.ply">
-      <Filter>Game\Assets\Models\Ply Models</Filter>
-    </None>
-    <None Include="assets\models\Lantern_xyz_n_rgba_uv.ply">
-      <Filter>Game\Assets\Models\Ply Models</Filter>
-    </None>
-    <None Include="assets\models\SM_Prop_Snowman_xyz_n_rgba_uv.ply">
-      <Filter>Game\Assets\Models\Ply Models</Filter>
     </None>
     <None Include="docs\PlyModelsToLoad.json">
       <Filter>Engine\Json\Docs\Json Files</Filter>

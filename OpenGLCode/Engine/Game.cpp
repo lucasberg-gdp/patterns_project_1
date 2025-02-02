@@ -29,8 +29,6 @@
 #include "cOrientTo.h"
 #include "cCamera.h"
 
-// TODO: Remove this
-#include "cEnemyBulletFactory.h"
 #include "cGameGrid.h"
     
 extern cScene* g_currentScene;
@@ -40,10 +38,6 @@ extern cAnimationSystem* g_animationSystem;
 extern cSoftBodyVerlet* g_softBody;
 extern Engine engine;
 extern cShaderManager* shaderManager;
-
-extern std::vector< cSoftBodyVerlet* > chainSoftBodies;
-
-cMesh* plank = nullptr;
 
 extern cMesh* g_particleMeshModel;
 
@@ -59,7 +53,6 @@ extern cCollisionMediator* g_CollisionMediator;
 extern cStars* stars;
 
 cEnemyBuilder builder;
-
 
 void Game::CreateStageSquads()
 {

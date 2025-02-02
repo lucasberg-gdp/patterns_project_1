@@ -40,7 +40,7 @@ public:
         }
     }
 
-    bool showUi = true;
+    bool showUi = false;
 
     float GetMinX();
     float GetMaxX();

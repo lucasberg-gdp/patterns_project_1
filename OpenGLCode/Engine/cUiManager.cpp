@@ -29,7 +29,7 @@ void cUiManager::Init(GLFWwindow* window)
     ImGui::StyleColorsDark();
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    cGameManager::GetGMInstance()->showUi = true;
+    cGameManager::GetGMInstance()->showUi = false;
 }
 
 void cUiManager::End(GLFWwindow* window)

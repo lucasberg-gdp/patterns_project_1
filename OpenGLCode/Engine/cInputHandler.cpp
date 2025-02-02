@@ -999,7 +999,7 @@ void cInputHandler::OnPress(int key)
 {
     if (key == 96) // `
     {
-        cGameManager::GetGMInstance()->showUi = !cGameManager::GetGMInstance()->showUi;
+        //cGameManager::GetGMInstance()->showUi = !cGameManager::GetGMInstance()->showUi;
     }
 
     //float horizontalMovement = 0.0f;
@@ -1275,8 +1275,6 @@ void cInputHandler::WhilePressed(GLFWwindow* window, int key) const
     if (key == GLFW_KEY_ENTER)
     {
         game.PressEnter();
-
-
     }
 }
 

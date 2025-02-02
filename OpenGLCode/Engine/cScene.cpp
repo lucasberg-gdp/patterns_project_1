@@ -128,7 +128,7 @@ void cScene::StartScene()
     else
     {
         g_camera->StopMovingInADirection(glm::vec3(0.0f, 0.0f, 1.0f));
-        cGameManager::GetGMInstance()->showUi = true;
+        //cGameManager::GetGMInstance()->showUi = true;
         //g_animationSystem->StopAllAnimations(g_gameObjects);
         isScenePlaying = false;
         g_animationSystem->m_isAnimating = true;

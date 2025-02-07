@@ -186,7 +186,7 @@ void cEnemyManager::MakeRoundOnBezierCurve(double deltaTime)
 
 void cEnemyManager::NavigateToGrid(double deltaTime)
 {
-    if (glm::distance(m_CurrentPosition, m_GridPosition) < 10.0f)
+    if (glm::distance(m_CurrentPosition, m_GridPosition) < 15.0f)
     {
         m_EnemyMesh->setDrawOrientation(glm::quat(1.0f, 0.0f,0.0f,0.0f));
         m_IsInGrid = true;

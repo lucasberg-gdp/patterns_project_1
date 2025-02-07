@@ -151,7 +151,6 @@ void cInputHandler::AsyncMouseHandlingUpdate(GLFWwindow* window)
         }
     }
 
-    // TODO: This is pretty janky....
     if (::g_IsMouseInsideWindow)
     {
         const float MOUSE_WHEEL_SENSITIVITY = 0.1f;
@@ -1251,26 +1250,26 @@ void cInputHandler::WhilePressed(GLFWwindow* window, int key) const
         }
     }
 
-    if (key == 'a' || key == 'A')
+    if (key == 'a' || key == 'A' || key == 263)
     {
         g_currentScene->m_Player->SetIsPressingLeft(true);
     }
 
-    if (key == 'd' || key == 'D')
+    if (key == 'd' || key == 'D' || key == 262)
     {
         g_currentScene->m_Player->SetIsPressingRight(true);
     }
 
     // Game Controls
-    if (key == ' ')
+    if (key == ' ' || key == 'w' || key == 'W' || key == 265)
     {
         g_currentScene->m_Player->ShootBullet();
     }
 
-    if (key == '1')
-    {
-        g_CollisionMediator->SetActive(true);
-    }
+    //if (key == '1')
+    //{
+    //    g_CollisionMediator->SetActive(true);
+    //}
 
     if (key == GLFW_KEY_ENTER)
     {
@@ -1280,12 +1279,12 @@ void cInputHandler::WhilePressed(GLFWwindow* window, int key) const
 
 void cInputHandler::OnRelease(int key)
 {
-    if (key == 'a' || key == 'A')
+    if (key == 'a' || key == 'A' || key == 263)
     {
         g_currentScene->m_Player->SetIsPressingLeft(false);
     }
 
-    if (key == 'd' || key == 'D')
+    if (key == 'd' || key == 'D' || key == 262)
     {
         g_currentScene->m_Player->SetIsPressingRight(false);
     }
